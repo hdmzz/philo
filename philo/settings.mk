@@ -1,6 +1,6 @@
 NAME = philo
 
-SRC = $Smain.c $Sthreads.c
+SRC = $Smain.c $Sthreads.c $Sutils.c
 
 HEADER = include/philo.h
 

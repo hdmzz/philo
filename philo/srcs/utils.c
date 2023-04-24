@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 11:09:43 by hdamitzi         ###   ########.fr       */
+/*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
+/*   Updated: 2023/04/24 10:53:23 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
-
-void	create_threads(t_philo **philo, int nbrs_of_philo)
+int	ft_atoi(const char *str)
 {
-	int	i;
+	long long	res;
+	int			sign;
 
-	i = 0;
-	while (i < nbrs_of_philo)
+	res = 0;
+	sign = 1;
+	while ((*str >= 9 && *str <= 13) || *str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		pthread_create(&(*philo)[i].thread, NULL, &routine, &(*philo)[i]);
-		i++;
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-}
-
-void	philo_join(t_philo **philo, int nbrs_of_philo)
-{
-	int	i;
-
-	i = 0;
-	while (i < nbrs_of_philo)
+	while (*str >= '0' && *str <= '9')
 	{
-		pthread_join((*philo)[i].thread, NULL);
-		i++;
+		if (res != (((res * 10) + (*str - 48)) / 10))
+			return (((sign + 1) / -2));
+		res = res * 10 + (*str - '0');
+		str++;
 	}
+	return (res * sign);
 }
