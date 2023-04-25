@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 11:43:36 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:55:42 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <string.h>
+# include <sys/time.h>
 
 typedef struct s_fork
 {
@@ -28,22 +29,30 @@ typedef struct s_fork
 //donc on utilisera les doule pointeurs je pense
 typedef struct s_philo
 {
-	pthread_t	thread;
-	int			nbr_of_philos;
-	int			id;
-	t_fork		*r_fork;
-	t_fork		*l_fork;
+	pthread_t		thread;
+	int				nbr_of_philos;
+	int				id;
+	t_fork			*r_fork;
+	t_fork			*l_fork;
+	int				r_frk_taken;
+	int				l_frk_taken;
+	int				is_dead;
+	int				max_meal;
+	pthread_mutex_t	philmutex;
 }	t_philo;
 
 //utils.c
 int		ft_atoi(const char *str);
 
 //main.c
-void	*routine(void *philo);
+void	*routine(void *arg);
 void	init_philo(t_philo **philo, t_fork **forks, int nbrs_of_philo);
 
 //threads.c
 void	create_threads(t_philo **philo, int nbrs_of_philo);
 void	philo_join(t_philo **philo, int nbrs_of_philo);
+
+//eat.c
+void	philo_eat(t_philo *philo);
 
 #endif

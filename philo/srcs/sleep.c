@@ -6,8 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 10:46:45 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:02:53 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	to_sleep(t_philo *philo)
+{
+	
+}

@@ -6,8 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 10:46:43 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:23:08 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	philo_eat(t_philo *philo)
+{
+	philo->id = philo->id;
+}

@@ -6,19 +6,21 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 11:46:08 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:04:56 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	*routine(void *philo)
+void	*routine(void *arg)
 {
-	t_philo	*phil;
+	t_philo	*philo;
+	philo = (t_philo *)arg;
 
-	phil = (t_philo *)philo;
-	printf("hello philo numero %d\nlfork nbr %p\n rfork nbr %p\n\n", \
-	phil->id, phil->l_fork, phil->r_fork);
+	while (!philo->is_dead)
+	{
+		
+	}
 	return (0);
 }
 
@@ -34,6 +36,7 @@ void	init_forks(t_fork **forks, int nbrs_of_philo)
 	while (i < nbrs_of_philo)
 	{
 		(*forks)[i].is_used = 0;
+		pthread_mutex_init(&((*forks)[i].lock), NULL);
 		i++;
 	}
 }
@@ -46,7 +49,11 @@ void	init_forks(t_fork **forks, int nbrs_of_philo)
 void	philo_attributes(t_philo *one_philo, t_fork **forks, int id, int nbrs)
 {
 	one_philo->id = id;
+	one_philo->is_dead = 0;
+	one_philo->r_frk_taken = 0;
+	one_philo->l_frk_taken = 0;
 	one_philo->r_fork = &((*forks)[id]);
+	one_philo->is_dead = 0;
 	if (id == (nbrs - 1))
 		one_philo->l_fork = &((*forks)[0]);
 	else
