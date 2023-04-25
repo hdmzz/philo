@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 14:04:56 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/25 14:36:39 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,35 @@
 void	*routine(void *arg)
 {
 	t_philo	*philo;
-	philo = (t_philo *)arg;
 
+	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(100);
 	while (!philo->is_dead)
 	{
-		
+		take_fork('r', philo);
+		if (philo->r_frk_taken == 1 && !philo->r_fork->is_used)
+			take_fork('l', philo);
+		if (philo->l_frk_taken && philo->r_frk_taken) 
+		{
+			printf("%d is eating\n", philo->id);
+			usleep(500000);
+			release_fork(philo);
+		}
 	}
 	return (0);
 }
 
 //fonction qui malloc le nombre de fourchette eet qui met tout a 0
-void	init_forks(t_fork **forks, int nbrs_of_philo)
+void	init_forks(t_fork **forks, t_args *args)
 {
 	int	i;
 
 	i = 0;
-	*forks = malloc(sizeof(t_fork) * nbrs_of_philo);
+	*forks = malloc(sizeof(t_fork) * args->nb_philo);
 	if (!(*forks))
 		exit(EXIT_FAILURE);
-	while (i < nbrs_of_philo)
+	while (i < args->nb_philo)
 	{
 		(*forks)[i].is_used = 0;
 		pthread_mutex_init(&((*forks)[i].lock), NULL);
@@ -60,30 +70,41 @@ void	philo_attributes(t_philo *one_philo, t_fork **forks, int id, int nbrs)
 		one_philo->l_fork = &((*forks)[id + 1]);
 }
 
-void	init_philo(t_philo **philo, t_fork **forks, int nbrs_of_philo)
+void	init_philo(t_philo **philo, t_fork **forks, t_args *args)
 {
 	int	i;
 
 	i = -1;
-	*philo = malloc(sizeof(t_philo) * nbrs_of_philo);
+	*philo = malloc(sizeof(t_philo) * args->nb_philo);
 	if (!(*philo))
 		exit(EXIT_FAILURE);
-	while (++i < nbrs_of_philo)
-		philo_attributes(&(*philo)[i], forks, i, nbrs_of_philo);
+	while (++i < args->nb_philo)
+		philo_attributes(&(*philo)[i], forks, i, args->nb_philo);
+}
+
+void	parse_args(char **av, t_args *args)
+{
+	args->nb_philo = ft_atoi(av[1]);
+	args->time_to_die = ft_atoi(av[2]);
+	args->time_to_eat = ft_atoi(av[3]);
+	args->time_to_sleep = ft_atoi(av[4]);
+	if (av[5])
+		args->max_eat = ft_atoi(av[5]);
 }
 
 int	main(int ac, char **av)
 {
 	t_fork	*forks;
 	t_philo	*philo;
-	int		nbrs_of_philo;
+	t_args	args;
 
-	if (ac < 2)
-		exit(EXIT_FAILURE);
-	nbrs_of_philo = ft_atoi(av[1]);
-	init_forks(&forks, nbrs_of_philo);
-	init_philo(&philo, &forks, ft_atoi(av[1]));
-	create_threads(&philo, nbrs_of_philo);
-	philo_join(&philo, nbrs_of_philo);
+	if (ac == 5 || ac == 4)
+	{
+		parse_args(av, &args);
+		init_forks(&forks, &args);
+		init_philo(&philo, &forks, &args);
+		create_threads(&philo, &args);
+		philo_join(&philo, &args);
+	}
 	return (0);
 }
