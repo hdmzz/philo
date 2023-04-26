@@ -6,8 +6,14 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 10:46:39 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:56:02 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	think(t_philo *philo)
+{
+	printf("%d is thinking\n", philo->id);
+	usleep(500000);
+}

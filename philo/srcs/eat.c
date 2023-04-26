@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/25 14:32:58 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:42:30 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,42 @@ void	philo_eat(t_philo *philo)
 
 void	take_fork(char fork_hand, t_philo *philo)
 {
-	if (fork_hand == 'l')
+	t_fork	*fork;
+	int		*taken;
+
+	fork = philo->l_fork;
+	taken = &(philo->l_frk_taken);
+	if (fork_hand == 'r')
 	{
-		if (philo->l_frk_taken == 0 && philo->l_fork->is_used == 0)
-		{
-			pthread_mutex_lock(&(philo->l_fork->lock));
-			philo->l_fork->is_used = 1;
-			philo->l_frk_taken = 1;
-			printf("%d has taken a left fork\n", philo->id);
-			pthread_mutex_unlock(&(philo->l_fork->lock));
-		}
+		fork = philo->r_fork;
+		taken = &(philo->r_frk_taken);
 	}
-	else if (philo->r_frk_taken == 0 && philo->r_fork->is_used == 0)
+	pthread_mutex_lock(&fork->lock);
+	if (!fork->is_used )
 	{
-		pthread_mutex_lock(&(philo->r_fork->lock));
-		philo->r_fork->is_used = 1;
-		philo->r_frk_taken = 1;
-		printf("%d has taken a right fork\n", philo->id);
-		pthread_mutex_unlock(&(philo->r_fork->lock));
+		fork->is_used = 1;
+		*taken = 1;
 	}
+	printf("%d take a %c fork\n", philo->id, fork_hand);
+	pthread_mutex_unlock(&fork->lock);
 }
 
 void	release_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->l_fork->lock));
-	philo->l_fork->is_used = 0;
-	philo->l_frk_taken = 0;
-	printf("%d released a left fork\n", philo->id);
-	pthread_mutex_unlock(&(philo->l_fork->lock));
-	pthread_mutex_lock(&(philo->r_fork->lock));
-	philo->r_fork->is_used = 0;
-	philo->r_frk_taken = 0;
-	printf("%d released a right fork\n", philo->id);
-	pthread_mutex_unlock(&(philo->r_fork->lock));
+	if (philo->l_fork->is_used && philo->l_frk_taken)
+	{
+		pthread_mutex_lock(&(philo->l_fork->lock));
+		philo->l_fork->is_used = 0;
+		philo->l_frk_taken = 0;
+		pthread_mutex_unlock(&(philo->l_fork->lock));
+		printf("%d released a left fork\n", philo->id);
+	}
+	if (philo->r_fork->is_used && philo->r_frk_taken)
+	{
+		pthread_mutex_lock(&(philo->r_fork->lock));
+		philo->r_fork->is_used = 0;
+		philo->r_frk_taken = 0;
+		pthread_mutex_unlock(&(philo->r_fork->lock));
+		printf("%d released a right fork\n", philo->id);
+	}
 }

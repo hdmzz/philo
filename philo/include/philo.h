@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/25 14:28:29 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:47:59 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_fork
 
 typedef struct s_args
 {
+	
 	int	nb_philo;
 	int	time_to_die;
 	int	time_to_eat;
@@ -66,5 +67,11 @@ void	philo_join(t_philo **philo, t_args *args);
 void	philo_eat(t_philo *philo);
 void	take_fork(char fork_hand, t_philo *philo);
 void	release_fork(t_philo *philo);
+
+//sleep.c
+void	to_sleep(t_philo *philo);
+
+//think.c
+void	think(t_philo *philo);
 
 #endif
