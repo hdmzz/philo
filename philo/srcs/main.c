@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 11:58:29 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:29:59 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,12 @@ void	*routine(void *arg)
 	while (!philo->is_dead)
 	{
 		take_fork('l', philo);
-		if ((philo->l_fork->is_used && !philo->l_frk_taken) || (philo->r_fork->is_used && !philo->r_fork))
-			to_sleep(philo);
 		if (philo->l_frk_taken == 1 && !philo->r_fork->is_used)
 			take_fork('r', philo);
 		if (philo->l_frk_taken && philo->r_frk_taken)
 		{
 			printf("%d is eating\n", philo->id);
-			usleep(500000);
+			usleep(philo->time_to_eat);
 		}
 		release_fork(philo);
 		think(philo);
@@ -53,7 +51,7 @@ void	init_forks(t_fork **forks, t_args *args)
 	}
 }
 
-void	philo_attributes(t_philo *one_philo, t_fork **forks, int id, int nbrs)
+void	philo_attributes(t_philo *one_philo, t_fork **forks, int id, t_args *args)
 {
 	one_philo->id = id;
 	one_philo->is_dead = 0;
@@ -61,7 +59,10 @@ void	philo_attributes(t_philo *one_philo, t_fork **forks, int id, int nbrs)
 	one_philo->l_frk_taken = 0;
 	one_philo->r_fork = &((*forks)[id]);
 	one_philo->is_dead = 0;
-	if (id == (nbrs - 1))
+	one_philo->time_to_die = args->time_to_die;
+	one_philo->time_to_eat = args->time_to_eat;
+	one_philo->time_to_sleep = args->time_to_sleep;
+	if (id == (args->nb_philo - 1))
 		one_philo->l_fork = &((*forks)[0]);
 	else
 		one_philo->l_fork = &((*forks)[id + 1]);
@@ -76,7 +77,7 @@ void	init_philo(t_philo **philo, t_fork **forks, t_args *args)
 	if (!(*philo))
 		exit(EXIT_FAILURE);
 	while (++i < args->nb_philo)
-		philo_attributes(&(*philo)[i], forks, i, args->nb_philo);
+		philo_attributes(&(*philo)[i], forks, i, args);
 }
 
 void	parse_args(char **av, t_args *args)
