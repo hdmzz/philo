@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/25 12:44:23 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:38:52 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,27 @@ void	philo_join(t_philo **philo, t_args *args)
 		pthread_join((*philo)[i].thread, NULL);
 		i++;
 	}
+}
+
+void	*routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
+		usleep(200);
+	while (!philo->is_dead)
+	{
+		take_fork('l', philo);
+		if (philo->l_frk_taken == 1 && !philo->r_fork->is_used)
+			take_fork('r', philo);
+		if (philo->l_frk_taken && philo->r_frk_taken)
+		{
+			printf("%d is eating\n", philo->id);
+			usleep(philo->time_to_eat);
+		}
+		release_fork(philo);
+		think(philo);
+	}
+	return (0);
 }

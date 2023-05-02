@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 12:34:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:39:05 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_fork
 
 typedef struct s_args
 {
-	
 	int	nb_philo;
 	int	time_to_die;
 	int	time_to_eat;
@@ -58,17 +57,17 @@ int			ft_atoi(const char *str);
 long int	timestamp(void);
 
 //main.c
-void		*routine(void *arg);
 void		init_philo(t_philo **philo, t_fork **forks, t_args *args);
 
 //threads.c
 void		create_threads(t_philo **philo, t_args *args);
 void		philo_join(t_philo **philo, t_args *args);
+void		*routine(void *arg);
 
 //eat.c
-void		philo_eat(t_philo *philo);
 void		take_fork(char fork_hand, t_philo *philo);
 void		release_fork(t_philo *philo);
+void		init_forks(t_fork **forks, t_args *args);
 
 //sleep.c
 void		to_sleep(t_philo *philo);

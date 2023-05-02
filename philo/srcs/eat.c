@@ -6,15 +6,26 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 11:59:10 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:36:13 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	philo_eat(t_philo *philo)
+void	init_forks(t_fork **forks, t_args *args)
 {
-	philo->id = philo->id;
+	int	i;
+
+	i = 0;
+	*forks = malloc(sizeof(t_fork) * args->nb_philo);
+	if (!(*forks))
+		exit(EXIT_FAILURE);
+	while (i < args->nb_philo)
+	{
+		(*forks)[i].is_used = 0;
+		pthread_mutex_init(&((*forks)[i].lock), NULL);
+		i++;
+	}
 }
 
 void	take_fork(char fork_hand, t_philo *philo)
