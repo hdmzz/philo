@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 12:23:20 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:34:37 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_args
 	int	max_eat;
 }	t_args;
 
-//cette structure sera utilise ds une liste mais pas chainee
-//donc on utilisera les doule pointeurs je pense
 typedef struct s_philo
 {
 	pthread_t		thread;
@@ -56,25 +54,26 @@ typedef struct s_philo
 }	t_philo;
 
 //utils.c
-int		ft_atoi(const char *str);
+int			ft_atoi(const char *str);
+long int	timestamp(void);
 
 //main.c
-void	*routine(void *arg);
-void	init_philo(t_philo **philo, t_fork **forks, t_args *args);
+void		*routine(void *arg);
+void		init_philo(t_philo **philo, t_fork **forks, t_args *args);
 
 //threads.c
-void	create_threads(t_philo **philo, t_args *args);
-void	philo_join(t_philo **philo, t_args *args);
+void		create_threads(t_philo **philo, t_args *args);
+void		philo_join(t_philo **philo, t_args *args);
 
 //eat.c
-void	philo_eat(t_philo *philo);
-void	take_fork(char fork_hand, t_philo *philo);
-void	release_fork(t_philo *philo);
+void		philo_eat(t_philo *philo);
+void		take_fork(char fork_hand, t_philo *philo);
+void		release_fork(t_philo *philo);
 
 //sleep.c
-void	to_sleep(t_philo *philo);
+void		to_sleep(t_philo *philo);
 
 //think.c
-void	think(t_philo *philo);
+void		think(t_philo *philo);
 
 #endif
