@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/26 10:57:34 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 11:58:29 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ void	*routine(void *arg)
 		usleep(200);
 	while (!philo->is_dead)
 	{
+		take_fork('l', philo);
 		if ((philo->l_fork->is_used && !philo->l_frk_taken) || (philo->r_fork->is_used && !philo->r_fork))
 			to_sleep(philo);
-		if (!philo->r_fork->is_used)
-			take_fork('l', philo);
 		if (philo->l_frk_taken == 1 && !philo->r_fork->is_used)
 			take_fork('r', philo);
 		if (philo->l_frk_taken && philo->r_frk_taken)
@@ -38,7 +37,6 @@ void	*routine(void *arg)
 	return (0);
 }
 
-//fonction qui malloc le nombre de fourchette eet qui met tout a 0
 void	init_forks(t_fork **forks, t_args *args)
 {
 	int	i;
@@ -55,11 +53,6 @@ void	init_forks(t_fork **forks, t_args *args)
 	}
 }
 
-//on attribue a chaque philosophe la fourchette
-// qui correspond a leur numero
-//fourchettes a droite et pour la gauche on
-// prend la fourchette a l index n + 1 de
-//notre position
 void	philo_attributes(t_philo *one_philo, t_fork **forks, int id, int nbrs)
 {
 	one_philo->id = id;

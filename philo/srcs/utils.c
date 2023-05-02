@@ -6,9 +6,11 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/24 10:53:23 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/02 11:57:32 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/philo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -33,4 +35,12 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (res * sign);
+}
+
+long int	timestamp(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	return ((t.tv_sec * 1000LL) + (t.tv_usec + 1000));
 }
