@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 12:39:05 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/03 13:01:02 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_sleep;
 	int				is_dead;
+	
 	int				max_meal;
 	pthread_mutex_t	philmutex;
 }	t_philo;

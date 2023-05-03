@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 14:03:11 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:58:41 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id %2)
-		usleep(200);
+	if (philo->id % 2 != 0)
+		usleep(philo->time_to_eat);
 	while (!philo->is_dead)
 	{
 		take_fork('l', philo);
@@ -52,10 +52,8 @@ void	*routine(void *arg)
 		{
 			printf("%d is eating\n", philo->id);
 			usleep(philo->time_to_eat);
+			release_fork(philo);
 		}
-		release_fork(philo);
-		think(philo);
-		to_sleep(philo);
 	}
 	return (0);
 }

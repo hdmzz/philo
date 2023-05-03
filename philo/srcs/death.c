@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   think.c                                            :+:      :+:    :+:   */
+/*   death.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/03 12:22:16 by hdamitzi         ###   ########.fr       */
+/*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
+/*   Updated: 2023/05/03 13:57:18 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	think(t_philo *philo)
+void	death(t_philo *philo)
 {
-	printf("%d is thinking\n", philo->id);
-	usleep(200);
+	while(1)
+	{
+		
+	}
 }

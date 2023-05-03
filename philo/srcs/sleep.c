@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/04/26 10:55:53 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:20:48 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	to_sleep(t_philo *philo)
 {
-	usleep(500000);
 	printf("%d is sleeping\n", philo->id);
+	usleep(philo->time_to_sleep);
+	think(philo);
 }

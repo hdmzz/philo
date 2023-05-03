@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/03 11:58:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/03 12:20:29 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,9 @@ void	release_fork(t_philo *philo)
 		philo->r_frk_taken = 0;
 		pthread_mutex_unlock(&(philo->r_fork->lock));
 		printf("%d released a right fork\n", philo->id);
+	}
+	if (!philo->l_frk_taken && !philo->r_frk_taken)
+	{
+		to_sleep(philo);//le philo  ne peut dormir que si il a mange
 	}
 }
