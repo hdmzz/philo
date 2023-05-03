@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 12:36:13 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/03 11:58:37 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,11 @@ void	take_fork(char fork_hand, t_philo *philo)
 	{
 		fork->is_used = 1;
 		*taken = 1;
+		pthread_mutex_unlock(&fork->lock);
+		printf("%d has taken %c fork\n", philo->id, fork_hand);
 	}
 	else
 		pthread_mutex_unlock(&fork->lock);
-	printf("%d take a %c fork\n", philo->id, fork_hand);
 }
 
 void	release_fork(t_philo *philo)
