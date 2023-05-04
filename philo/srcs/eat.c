@@ -60,7 +60,7 @@ void	release_fork(t_philo *philo)
 		philo->l_fork->is_used = 0;
 		philo->l_frk_taken = 0;
 		pthread_mutex_unlock(&(philo->l_fork->lock));
-		printf("%d released a left fork\n", philo->id);
+		print_state("released a left fork", philo);
 	}
 	if (philo->r_fork->is_used && philo->r_frk_taken)
 	{
@@ -68,7 +68,7 @@ void	release_fork(t_philo *philo)
 		philo->r_fork->is_used = 0;
 		philo->r_frk_taken = 0;
 		pthread_mutex_unlock(&(philo->r_fork->lock));
-		printf("%d released a right fork\n", philo->id);
+		print_state("released a right fork", philo);
 	}
 	if (!philo->l_frk_taken && !philo->r_frk_taken)
 	{

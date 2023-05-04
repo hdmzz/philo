@@ -44,3 +44,10 @@ long int	timestamp(void)
 	gettimeofday(&t, NULL);
 	return ((t.tv_sec * 1000LL) + (t.tv_usec + 1000));
 }
+
+void	print_state(char *state, t_philo *philo)
+{
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%d %s\n", philo->id, state);
+	pthread_mutex_unlock(philo->print_mutex);
+}

@@ -28,11 +28,12 @@ typedef struct s_fork
 
 typedef struct s_args
 {
-	int	nb_philo;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	max_eat;
+	int				nb_philo;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				max_eat;
+	pthread_mutex_t	print_mutex;
 }	t_args;
 
 typedef struct s_philo
@@ -48,13 +49,14 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_sleep;
 	int				is_dead;
-	
+	pthread_mutex_t	*print_mutex;
 	int				max_meal;
 	pthread_mutex_t	philmutex;
 }	t_philo;
 
 //utils.c
 int			ft_atoi(const char *str);
+void		print_state(char *state, t_philo *philo);
 long int	timestamp(void);
 
 //main.c

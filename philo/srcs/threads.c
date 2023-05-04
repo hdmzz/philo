@@ -50,7 +50,7 @@ void	*routine(void *arg)
 			take_fork('r', philo);
 		if (philo->l_frk_taken && philo->r_frk_taken)
 		{
-			printf("%d is eating\n", philo->id);
+			print_state("is eating", philo);
 			usleep(philo->time_to_eat);
 			release_fork(philo);
 		}

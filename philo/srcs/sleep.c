@@ -14,7 +14,7 @@
 
 void	to_sleep(t_philo *philo)
 {
-	printf("%d is sleeping\n", philo->id);
+	print_state("is sleeping", philo);
 	usleep(philo->time_to_sleep);
 	think(philo);
 }

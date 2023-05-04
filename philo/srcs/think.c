@@ -14,6 +14,6 @@
 
 void	think(t_philo *philo)
 {
-	printf("%d is thinking\n", philo->id);
+	print_state("is thinking", philo);
 	usleep(200);
 }

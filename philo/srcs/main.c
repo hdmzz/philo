@@ -24,6 +24,7 @@ void	philo_attributes(t_philo *one_philo, t_fork **forks, \
 	one_philo->time_to_die = args->time_to_die;
 	one_philo->time_to_eat = args->time_to_eat;
 	one_philo->time_to_sleep = args->time_to_sleep;
+	one_philo->print_mutex = &args->print_mutex;
 	if (id == (args->nb_philo - 1))
 		one_philo->l_fork = &((*forks)[0]);
 	else
@@ -50,6 +51,8 @@ void	parse_args(char **av, t_args *args)
 	args->time_to_sleep = ft_atoi(av[4]);
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
+	if (pthread_mutex_init(&args->print_mutex, NULL) != 0)
+		printf("error\n");
 }
 
 int	main(int ac, char **av)
