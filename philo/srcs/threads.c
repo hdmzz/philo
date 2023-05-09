@@ -3,23 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/03 12:58:41 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:46:10 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	create_threads(t_philo **philo, t_args *args)
+void	create_threads(t_philo *philo, t_args *args)
 {
 	int	i;
+	pthread_t	*thrd;
 
+	i = 0;
+	thrd = malloc(sizeof(pthread_t) * args->nb_philo);
+	while (i < args->nb_philo)
+	{
+		if (pthread_create(&thrd[i], NULL, &routine, (void *)&philo[i]))
+			return ;
+		i++;
+	}
 	i = 0;
 	while (i < args->nb_philo)
 	{
-		pthread_create(&(*philo)[i].thread, NULL, &routine, &(*philo)[i]);
+		pthread_join(thrd[i], NULL);
 		i++;
 	}
 }

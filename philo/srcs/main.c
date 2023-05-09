@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 12:38:40 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:46:44 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ int	main(int ac, char **av)
 		parse_args(av, &args);
 		init_forks(&forks, &args);
 		init_philo(&philo, &forks, &args);
-		create_threads(&philo, &args);
-		philo_join(&philo, &args);
+		create_threads(philo, &args);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/03 13:01:02 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 20:47:07 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ long int	timestamp(void);
 void		init_philo(t_philo **philo, t_fork **forks, t_args *args);
 
 //threads.c
-void		create_threads(t_philo **philo, t_args *args);
+void		create_threads(t_philo *philo, t_args *args);
 void		philo_join(t_philo **philo, t_args *args);
 void		*routine(void *arg);
 
