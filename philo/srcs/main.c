@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 12:13:25 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:16:21 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philo_attributes(t_philo *one_philo, t_fork **forks, \
 	int id, t_args *args)
 {
-	one_philo->id = id;
+	one_philo->id = id + 1;
 	one_philo->is_dead = 0;
 	one_philo->r_frk_taken = 0;
 	one_philo->l_frk_taken = 0;
@@ -56,6 +56,7 @@ void	parse_args(char **av, t_args *args)
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
 	pthread_mutex_init(&args->print_mutex, NULL);
+	pthread_mutex_init(&args->global_mutex, NULL);
 }
 
 int	main(int ac, char **av)

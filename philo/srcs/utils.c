@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 12:38:58 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:42:04 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,13 @@ long long	timestamp(void)
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	return (t.tv_sec * 1000 + t.tv_usec / 1000);
+	return (t.tv_sec * 1000LL + t.tv_usec / 1000);
 }
 
 void	print_state(char *state, t_philo *philo)
 {
 
 	pthread_mutex_lock(&philo->args->print_mutex);
-	printf("start simulation = %lld ", philo->args->start_simulation);
-	printf("current time = %lld ", timestamp());
 	printf("%lld %d %s\n", (timestamp() - philo->args->start_simulation), philo->id, state);
 	pthread_mutex_unlock(&philo->args->print_mutex);
 }
