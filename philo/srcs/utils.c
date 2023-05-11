@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/02 11:57:32 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:29:42 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-long int	timestamp(void)
+long long	timestamp(void)
 {
 	struct timeval	t;
 
@@ -47,7 +47,11 @@ long int	timestamp(void)
 
 void	print_state(char *state, t_philo *philo)
 {
-	pthread_mutex_lock(philo->print_mutex);
-	printf("%d %s\n", philo->id, state);
-	pthread_mutex_unlock(philo->print_mutex);
+	long long	cur_time;
+
+	cur_time = timestamp();
+	cur_time -= philo->args->start_simulation;
+	pthread_mutex_lock(&philo->args->print_mutex);
+	printf("%lld %d %s\n", cur_time, philo->id, state);
+	pthread_mutex_unlock(&philo->args->print_mutex);
 }

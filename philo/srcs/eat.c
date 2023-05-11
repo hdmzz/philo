@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/03 12:20:29 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:23:26 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	take_fork(char fork_hand, t_philo *philo)
 		taken = &(philo->r_frk_taken);
 	}
 	pthread_mutex_lock(&fork->lock);
-	if (!fork->is_used)
+	if (!fork->is_used && !(*taken))
 	{
 		fork->is_used = 1;
 		*taken = 1;
+		print_state("has taken a fork", philo);
 		pthread_mutex_unlock(&fork->lock);
-		printf("%d has taken %c fork\n", philo->id, fork_hand);
 	}
 	else
 		pthread_mutex_unlock(&fork->lock);
@@ -60,7 +60,6 @@ void	release_fork(t_philo *philo)
 		philo->l_fork->is_used = 0;
 		philo->l_frk_taken = 0;
 		pthread_mutex_unlock(&(philo->l_fork->lock));
-		print_state("released a left fork", philo);
 	}
 	if (philo->r_fork->is_used && philo->r_frk_taken)
 	{
@@ -68,10 +67,9 @@ void	release_fork(t_philo *philo)
 		philo->r_fork->is_used = 0;
 		philo->r_frk_taken = 0;
 		pthread_mutex_unlock(&(philo->r_fork->lock));
-		print_state("released a right fork", philo);
 	}
 	if (!philo->l_frk_taken && !philo->r_frk_taken)
 	{
-		to_sleep(philo);//le philo  ne peut dormir que si il a mange
+		to_sleep(philo);
 	}
 }

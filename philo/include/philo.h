@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/09 20:47:07 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:15:37 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ typedef struct s_args
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				one_dead;
+	long long		start_simulation;
 	int				max_eat;
+	
 	pthread_mutex_t	print_mutex;
 }	t_args;
 
@@ -49,15 +52,16 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_sleep;
 	int				is_dead;
-	pthread_mutex_t	*print_mutex;
 	int				max_meal;
+	t_args			*args;
+	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	philmutex;
 }	t_philo;
 
 //utils.c
 int			ft_atoi(const char *str);
 void		print_state(char *state, t_philo *philo);
-long int	timestamp(void);
+long long	timestamp(void);
 
 //main.c
 void		init_philo(t_philo **philo, t_fork **forks, t_args *args);
@@ -74,6 +78,7 @@ void		init_forks(t_fork **forks, t_args *args);
 
 //sleep.c
 void		to_sleep(t_philo *philo);
+void	ft_sleep(long long time_to);
 
 //think.c
 void		think(t_philo *philo);

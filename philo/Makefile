@@ -14,7 +14,7 @@ $O:
 
 $(OBJ): | $O
 
-$(OBJ): $O%.o: $S% Makefile $(HEADER)
+$(OBJ): $O%.o: $S% Makefile settings.mk $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/09 20:46:44 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/09 22:32:43 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	philo_attributes(t_philo *one_philo, t_fork **forks, \
 	one_philo->time_to_die = args->time_to_die;
 	one_philo->time_to_eat = args->time_to_eat;
 	one_philo->time_to_sleep = args->time_to_sleep;
-	one_philo->print_mutex = &args->print_mutex;
+	one_philo->print_mutex = args->print_mutex;
+	one_philo->args = args;
 	if (id == (args->nb_philo - 1))
 		one_philo->l_fork = &((*forks)[0]);
 	else
@@ -49,10 +50,11 @@ void	parse_args(char **av, t_args *args)
 	args->time_to_die = ft_atoi(av[2]);
 	args->time_to_eat = ft_atoi(av[3]);
 	args->time_to_sleep = ft_atoi(av[4]);
+	args->start_simulation = 0;
+	args->one_dead = 0;
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
-	if (pthread_mutex_init(&args->print_mutex, NULL) != 0)
-		printf("error\n");
+	pthread_mutex_init(&args->print_mutex, NULL);
 }
 
 int	main(int ac, char **av)
