@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 13:15:32 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 13:40:14 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				nbr_of_philos;
 	int				id;
-	t_fork			*r_fork;
-	t_fork			*l_fork;
+	pthread_mutex_t	r_fork;
+	pthread_mutex_t	*l_fork;
 	int				r_frk_taken;
 	int				l_frk_taken;
 	int				time_to_eat;
@@ -64,9 +64,6 @@ int			ft_atoi(const char *str);
 void		print_state(char *state, t_philo *philo);
 long long	timestamp(void);
 
-//main.c
-void		init_philo(t_philo **philo, t_fork **forks, t_args *args);
-
 //threads.c
 void		create_threads(t_philo *philo, t_args *args);
 void		philo_join(t_philo **philo, t_args *args);
@@ -75,7 +72,6 @@ void		*routine(void *arg);
 //eat.c
 void		take_fork(char fork_hand, t_philo *philo);
 void		release_fork(t_philo *philo);
-void		init_forks(t_fork **forks, t_args *args);
 
 //sleep.c
 void		to_sleep(t_philo *philo);
@@ -86,5 +82,10 @@ void		think(t_philo *philo);
 
 //death.c
 void	death(t_philo *philo);
+
+//init.c
+void	parse_args(char **av, t_args *args);
+void	init_philo(t_philo **philo, t_args *args);
+void	philo_attributes(t_philo *one_philo, int id, t_args *args);
 
 #endif
