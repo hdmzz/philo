@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 15:04:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:02:40 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	philo_attributes(t_philo *one_philo, int id, t_args *args)
 	one_philo->time_to_die = args->time_to_die;
 	one_philo->time_to_eat = args->time_to_eat;
 	one_philo->time_to_sleep = args->time_to_sleep;
-	one_philo->print_mutex = args->print_mutex;
 	one_philo->args = args;
 	one_philo->last_meal = 0;
 	pthread_mutex_init(&one_philo->r_fork, NULL);
@@ -66,6 +65,5 @@ void	parse_args(char **av, t_args *args)
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
 	pthread_mutex_init(&args->print_mutex, NULL);
-	pthread_mutex_init(&args->global_mutex, NULL);
 	pthread_mutex_init(&args->death_mutex, NULL);
 }

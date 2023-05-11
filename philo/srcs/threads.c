@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 15:09:30 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:45:36 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ void	create_threads(t_philo *philo, t_args *args)
 	while (i < args->nb_philo)
 	{
 		pthread_join(thrd[i], NULL);
-		i++;
-	}
-}
-
-void	philo_join(t_philo **philo, t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (i < args->nb_philo)
-	{
-		pthread_join((*philo)[i].thread, NULL);
 		i++;
 	}
 }

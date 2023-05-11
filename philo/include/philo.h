@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 15:09:07 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:42:57 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ typedef struct s_args
 	int				max_eat;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	global_mutex;
 }	t_args;
 
 typedef struct s_philo
 {
-	pthread_t		thread;
 	int				nbr_of_philos;
 	int				id;
 	pthread_mutex_t	r_fork;
@@ -56,8 +54,6 @@ typedef struct s_philo
 	int				max_meal;
 	long long		last_meal;
 	t_args			*args;
-	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	philmutex;
 }	t_philo;
 
 //utils.c
