@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/09 22:17:14 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:12:34 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	create_threads(t_philo *philo, t_args *args)
 	{
 		if (pthread_create(&thrd[i], NULL, &routine, (void *)&philo[i]))
 			return ;
+		philo[i].last_meal = timestamp();
 		i++;
 	}
 	i = 0;

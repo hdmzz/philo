@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/09 22:32:43 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:13:25 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	philo_attributes(t_philo *one_philo, t_fork **forks, \
 	one_philo->time_to_sleep = args->time_to_sleep;
 	one_philo->print_mutex = args->print_mutex;
 	one_philo->args = args;
+	one_philo->last_meal = 0;
 	if (id == (args->nb_philo - 1))
 		one_philo->l_fork = &((*forks)[0]);
 	else

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/03 12:22:16 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:15:47 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,4 @@
 void	think(t_philo *philo)
 {
 	print_state("is thinking", philo);
-	usleep(200);
 }
