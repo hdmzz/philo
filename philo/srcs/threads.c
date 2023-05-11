@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 13:00:54 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:09:30 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2)
 		usleep(philo->time_to_eat);
-	while (!philo->args->one_dead)
+	while (!is_dead(philo))
 	{
 		take_fork('l', philo);
 		if (philo->l_frk_taken)

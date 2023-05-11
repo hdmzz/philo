@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 13:40:14 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/11 15:09:07 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_args
 	int				one_dead;
 	long long		start_simulation;
 	int				max_eat;
+	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	global_mutex;
 }	t_args;
@@ -75,17 +76,18 @@ void		release_fork(t_philo *philo);
 
 //sleep.c
 void		to_sleep(t_philo *philo);
-void	ft_sleep(long long time_to);
+void		ft_sleep(long long time_to);
 
 //think.c
 void		think(t_philo *philo);
 
 //death.c
-void	death(t_philo *philo);
+void		death(t_philo *philo);
+int			is_dead(t_philo *philo);
 
 //init.c
-void	parse_args(char **av, t_args *args);
-void	init_philo(t_philo **philo, t_args *args);
-void	philo_attributes(t_philo *one_philo, int id, t_args *args);
+void		parse_args(char **av, t_args *args);
+void		init_philo(t_philo **philo, t_args *args);
+void		philo_attributes(t_philo *one_philo, int id, t_args *args);
 
 #endif
