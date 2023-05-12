@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 13:30:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:39:32 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	take_fork(char fork_hand, t_philo *philo)
 {
 	pthread_mutex_t	*fork;
-	int		*taken;
+	int				*taken;
 
 	fork = philo->l_fork;
 	taken = &philo->nbr_frk_tkn;

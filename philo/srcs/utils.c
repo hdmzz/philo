@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 12:42:04 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:41:39 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ long long	timestamp(void)
 
 void	print_state(char *state, t_philo *philo)
 {
-
 	pthread_mutex_lock(&philo->args->print_mutex);
-	printf("%lld %d %s\n", (timestamp() - philo->args->start_simulation), philo->id, state);
+	printf("%lld ", (timestamp() - philo->args->start_simulation));
+	printf("%d ", philo->id);
+	printf("%s\n", state);
 	pthread_mutex_unlock(&philo->args->print_mutex);
 }

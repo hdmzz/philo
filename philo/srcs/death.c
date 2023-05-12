@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 11:53:01 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:42:46 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	death(t_philo *philo)
 	int	dead;
 
 	dead = 0;
-	while(!dead)
+	while (!dead)
 	{
 		i = -1;
 		while (++i < philo->args->nb_philo)
