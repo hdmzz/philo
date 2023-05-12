@@ -4,5 +4,5 @@ SRC = $Smain.c $Sthreads.c $Sutils.c $Seat.c $Ssleep.c $Sthink.c $Sdeath.c $Sini
 
 HEADER = include/philo.h
 
-CC = gcc -g3 -pthread
+CC = gcc -g3 -pthread -fsanitize=thread
 CFLAGS = -Wall -Wextra -Werror

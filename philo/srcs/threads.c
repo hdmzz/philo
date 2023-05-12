@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 13:43:59 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:47:30 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	create_threads(t_philo *philo, t_args *args)
 	{
 		if (pthread_create(&thrd[i], NULL, &routine, (void *)&philo[i]))
 			return ;
-		philo[i].last_meal = timestamp();
 		i++;
 	}
 	death(philo);
@@ -43,6 +42,7 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	philo->last_meal = timestamp();
 	if (philo->id % 2)
 		usleep(philo->time_to_eat);
 	while (!is_dead(philo->args))
