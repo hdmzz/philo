@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 15:12:44 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:53:01 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	death(t_philo *philo)
 	int	i;
 	int	dead;
 
+	dead = 0;
 	while(!dead)
 	{
 		i = -1;
@@ -45,12 +46,12 @@ void	death(t_philo *philo)
 	}
 }
 
-int	is_dead(t_philo *philo)
+int	is_dead(t_args *args)
 {
 	int	ret;
 
-	pthread_mutex_lock(&philo->args->death_mutex);
-	ret = philo->args->one_dead;
-	pthread_mutex_unlock(&philo->args->death_mutex);
+	pthread_mutex_lock(&args->death_mutex);
+	ret = args->one_dead;
+	pthread_mutex_unlock(&args->death_mutex);
 	return (ret);
 }

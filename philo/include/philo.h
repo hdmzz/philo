@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 15:42:57 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:30:00 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,10 @@ typedef struct s_args
 
 typedef struct s_philo
 {
-	int				nbr_of_philos;
 	int				id;
 	pthread_mutex_t	r_fork;
 	pthread_mutex_t	*l_fork;
-	int				r_frk_taken;
-	int				l_frk_taken;
+	int				nbr_frk_tkn;
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
@@ -79,7 +77,7 @@ void		think(t_philo *philo);
 
 //death.c
 void		death(t_philo *philo);
-int			is_dead(t_philo *philo);
+int			is_dead(t_args *args);
 
 //init.c
 void		parse_args(char **av, t_args *args);

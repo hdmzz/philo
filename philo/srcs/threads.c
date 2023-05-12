@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 15:45:36 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:27:42 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2)
 		usleep(philo->time_to_eat);
-	while (!is_dead(philo))
+	while (!is_dead(philo->args))
 	{
 		take_fork('l', philo);
-		if (philo->l_frk_taken)
+		if (philo->nbr_frk_tkn == 1)
 			take_fork('r', philo);
-		if (philo->l_frk_taken && philo->r_frk_taken)
+		if (philo->nbr_frk_tkn == 2)
 		{
 			print_state("is eating", philo);
+			philo->last_meal = timestamp();
 			ft_sleep(philo->time_to_eat);
 			release_fork(philo);
 		}
