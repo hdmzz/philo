@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 14:29:22 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:12:06 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,19 @@ typedef struct s_args
 	int				one_dead;
 	long long		start_simulation;
 	int				max_eat;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	print_mutex;
 }	t_args;
 
 typedef struct s_philo
 {
+	int				index;
+	int				lfork;
+	int				rfork;
 	int				id;
-	pthread_mutex_t	r_fork;
-	pthread_mutex_t	*l_fork;
-	int				nbr_frk_tkn;
+	int				r_frk_tkn;
+	int				l_frk_tkn;
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
@@ -52,6 +55,7 @@ typedef struct s_philo
 	int				max_meal;
 	long long		last_meal;
 	t_args			*args;
+	pthread_mutex_t	check_meal_mutex;
 }	t_philo;
 
 //utils.c
@@ -61,11 +65,10 @@ long long	timestamp(void);
 
 //threads.c
 void		create_threads(t_philo *philo, t_args *args);
-void		philo_join(t_philo **philo, t_args *args);
 void		*routine(void *arg);
 
 //eat.c
-void		take_fork(char fork_hand, t_philo *philo);
+void		take_fork(t_philo *philo);
 void		release_fork(t_philo *philo);
 
 //sleep.c

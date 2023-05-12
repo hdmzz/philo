@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 14:47:30 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:42:48 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	create_threads(t_philo *philo, t_args *args)
 	{
 		if (pthread_create(&thrd[i], NULL, &routine, (void *)&philo[i]))
 			return ;
+		pthread_mutex_lock(&philo[i].check_meal_mutex);
+		philo[i].last_meal = timestamp();
+		pthread_mutex_unlock(&philo[i].check_meal_mutex);
 		i++;
 	}
 	death(philo);
@@ -42,21 +45,17 @@ void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	philo->last_meal = timestamp();
 	if (philo->id % 2)
 		usleep(philo->time_to_eat);
 	while (!is_dead(philo->args))
 	{
-		take_fork('l', philo);
-		if (philo->nbr_frk_tkn == 1)
-			take_fork('r', philo);
-		if (philo->nbr_frk_tkn == 2)
-		{
-			print_state("is eating", philo);
-			philo->last_meal = timestamp();
-			ft_sleep(philo->time_to_eat);
-			release_fork(philo);
-		}
+		take_fork(philo);
+		print_state("is eating", philo);
+		pthread_mutex_lock(&philo->check_meal_mutex);
+		philo->last_meal = timestamp();
+		pthread_mutex_unlock(&philo->check_meal_mutex);
+		ft_sleep(philo->time_to_eat);
+		release_fork(philo);
 	}
 	return (0);
 }

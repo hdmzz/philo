@@ -6,33 +6,33 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 14:22:43 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:10:50 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	take_fork(char fork_hand, t_philo *philo)
+void	take_fork(t_philo *philo)
 {
-	pthread_mutex_t	*fork;
-	int				*taken;
+	pthread_mutex_t	*forks;
 
-	fork = philo->l_fork;
-	taken = &philo->nbr_frk_tkn;
-	if (fork_hand == 'r')
-		fork = &philo->r_fork;
-	if (!(*taken == philo->args->nb_philo && philo->args->nb_philo == 1))
+	forks = philo->args->forks;
+	if (philo->args->nb_philo != 1)
 	{
-		pthread_mutex_lock(fork);
-		*taken += 1;
+		pthread_mutex_lock(&forks[philo->lfork]);
 		print_state("has taken a fork", philo);
+		
 	}
+	pthread_mutex_lock(&forks[philo->rfork]);
+	print_state("has taken a fork", philo);
 }
 
 void	release_fork(t_philo *philo)
 {
-	philo->nbr_frk_tkn = 0;
-	pthread_mutex_unlock(philo->l_fork);
-	pthread_mutex_unlock(&philo->r_fork);
+	pthread_mutex_t	*forks;
+
+	forks = philo->args->forks;
+	pthread_mutex_unlock(&forks[philo->lfork]);
+	pthread_mutex_unlock(&forks[philo->rfork]);
 	to_sleep(philo);
 }
