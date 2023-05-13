@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/11 13:38:30 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/13 15:50:57 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int ac, char **av)
 		parse_args(av, &args);
 		init_philo(&philo, &args);
 		create_threads(philo, &args);
+		while(1)
+			;
 	}
 	return (0);
 }
