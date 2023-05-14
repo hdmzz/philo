@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/13 16:51:06 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:46:53 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ void	create_threads(t_philo *philo, t_args *args)
 
 	i = 0;
 	args->start_simulation = timestamp();
-	//thrd = malloc(sizeof(pthread_t) * args->nb_philo);
-	// if (!thrd)
-	// 	return ;
 	while (i < args->nb_philo)
 	{
 		if (pthread_create(&thrd, NULL, &routine, (void *)&philo[i]) != 0)
@@ -30,7 +27,6 @@ void	create_threads(t_philo *philo, t_args *args)
 		philo[i].last_meal = timestamp();
 		pthread_mutex_unlock(&philo[i].check_meal_mutex);
 		pthread_detach(thrd);
-		usleep(100);
 		i++;
 	}
 	//death(philo);
@@ -44,10 +40,13 @@ void	create_threads(t_philo *philo, t_args *args)
 
 void	*routine(void *arg)
 {
-	t_philo	*philo;
+	t_philo		*philo;
+	pthread_t	thrd;
 
 	philo = (t_philo *)arg;
-	while (1)
+	pthread_create(&thrd, NULL, &death, philo);
+	pthread_detach(thrd);
+	while (!is_dead(philo->args))
 	{
 		take_fork(philo);
 		if (philo->l_frk_tkn && philo->r_frk_tkn)

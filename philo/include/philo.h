@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 20:12:06 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:45:10 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_args
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	check_death;
 }	t_args;
 
 typedef struct s_philo
@@ -79,7 +80,7 @@ void		ft_sleep(long long time_to);
 void		think(t_philo *philo);
 
 //death.c
-void		death(t_philo *philo);
+void		*death(void *arg);
 int			is_dead(t_args *args);
 
 //init.c

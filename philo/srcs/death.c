@@ -6,54 +6,46 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 17:53:48 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:48:20 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-static int	check_one_philo_death(t_philo *philo)
+void	*death(void *arg)
 {
+	int	dead;
+	t_philo	*philo;
 	long long	lst_meal;
 
-	pthread_mutex_lock(&philo->check_meal_mutex);
-	lst_meal = philo->last_meal;
-	pthread_mutex_unlock(&philo->check_meal_mutex);
-	if ((timestamp() - lst_meal) > philo->args->time_to_die)
-		return (1);
-	return (0);
-}
-
-void	death(t_philo *philo)
-{
-	int	i;
-	int	dead;
-
+	philo = (t_philo *)arg;
 	dead = 0;
 	while (!dead)
 	{
-		i = -1;
-		while (++i < philo->args->nb_philo)
+		pthread_mutex_lock(&philo->check_meal_mutex);
+		lst_meal = philo->last_meal;
+		if ((timestamp() - lst_meal) > philo->args->time_to_die)
 		{
-			if (check_one_philo_death(&philo[i]))
-			{
-				dead = 1;
-				pthread_mutex_lock(&philo->args->death_mutex);
-				philo->args->one_dead = 1;
-				pthread_mutex_unlock(&philo->args->death_mutex);
-				print_state("died", &philo[i]);
-				break ;
-			}
+			dead = 1;
+			print_state("died", philo);
+			pthread_mutex_unlock(&philo->check_meal_mutex);
+			pthread_mutex_lock(&philo->args->check_death);
+			philo->args->one_dead = 1;
+			pthread_mutex_unlock(&philo->args->check_death);
+			pthread_mutex_unlock(&philo->args->death_mutex);
+			return (0);
 		}
+		pthread_mutex_unlock(&philo->check_meal_mutex);
 	}
+	return (0);
 }
 
 int	is_dead(t_args *args)
 {
 	int	ret;
 
-	pthread_mutex_lock(&args->death_mutex);
+	pthread_mutex_lock(&args->check_death);
 	ret = args->one_dead;
-	pthread_mutex_unlock(&args->death_mutex);
+	pthread_mutex_unlock(&args->check_death);
 	return (ret);
 }
