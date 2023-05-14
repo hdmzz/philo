@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 14:46:03 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:19:22 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	parse_args(char **av, t_args *args)
 	pthread_mutex_init(&args->print_mutex, NULL);
 	pthread_mutex_init(&args->death_mutex, NULL);
 	pthread_mutex_init(&args->check_death, NULL);
+	
 	pthread_mutex_lock(&args->death_mutex);
 }
