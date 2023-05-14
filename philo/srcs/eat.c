@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/13 16:48:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:03:52 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	release_fork(t_philo *philo)
 	pthread_mutex_t	*forks;
 
 	forks = philo->args->forks;
-	if (philo->r_frk_tkn)
+	if (philo->r_frk_tkn &&)
 	{
 		pthread_mutex_unlock(&forks[philo->rfork]);
 		philo->r_frk_tkn = 0;

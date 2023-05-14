@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 14:46:53 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:57:46 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_threads(t_philo *philo, t_args *args)
 		pthread_detach(thrd);
 		i++;
 	}
-	//death(philo);
+	death(philo);
 	//i = 0;
 	// while (i < args->nb_philo)
 	// {
@@ -41,11 +41,8 @@ void	create_threads(t_philo *philo, t_args *args)
 void	*routine(void *arg)
 {
 	t_philo		*philo;
-	pthread_t	thrd;
 
 	philo = (t_philo *)arg;
-	pthread_create(&thrd, NULL, &death, philo);
-	pthread_detach(thrd);
 	while (!is_dead(philo->args))
 	{
 		take_fork(philo);

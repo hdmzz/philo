@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 14:45:10 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 15:42:15 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		ft_sleep(long long time_to);
 void		think(t_philo *philo);
 
 //death.c
-void		*death(void *arg);
+void		death(t_philo *philo);
 int			is_dead(t_args *args);
 
 //init.c
