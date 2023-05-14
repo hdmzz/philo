@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 16:04:43 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:27:05 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	death(t_philo *philo)
 			lst_meal = philo[i].last_meal;
 			if ((timestamp() - lst_meal) > philo->args->time_to_die)
 			{
+				pthread_mutex_unlock(&philo[i].check_meal_mutex);
 				dead = 1;
 				print_state("died", philo);
-				pthread_mutex_unlock(&philo[i].check_meal_mutex);
 				pthread_mutex_unlock(&philo->args->death_mutex);
 				return ;
 			}

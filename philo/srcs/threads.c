@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 15:57:46 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:24:15 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	while (!is_dead(philo->args))
+	while (1)
 	{
 		take_fork(philo);
 		if (philo->l_frk_tkn && philo->r_frk_tkn)
