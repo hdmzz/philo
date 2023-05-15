@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/15 11:36:15 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:21:14 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ long long	timestamp(void);
 //threads.c
 void		create_threads(t_args *args);
 void		*routine(void *arg);
+void	wait_and_end(t_args *args);
 
 //eat.c
 void		take_fork(t_philo *philo);

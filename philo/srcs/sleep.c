@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/15 11:38:21 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:49:44 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	to_sleep(t_philo *philo)
 {
+	if (is_dead(philo->args))
+		return;
 	print_state("is sleeping", philo);
 	ft_sleep(philo->time_to_sleep);
 }

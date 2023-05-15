@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/15 11:49:01 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 12:48:11 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	take_fork(t_philo *philo)
 	int				first;
 	int				second;
 
+	if (is_dead(philo->args))
+		return ;
 	first = philo->lfork;
 	second = philo->rfork;
 	if (philo->id % 2 == 0)
@@ -41,6 +43,8 @@ void	release_fork(t_philo *philo)
 {
 	pthread_mutex_t	*forks;
 
+	if (is_dead(philo->args))
+		return ;
 	forks = philo->args->forks;
 	pthread_mutex_unlock(&forks[philo->rfork]);
 	philo->first_taken = 0;
