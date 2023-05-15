@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 15:42:15 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:36:15 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,26 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_fork
+struct s_args;
+
+typedef struct s_philo
 {
-	int				is_used;
-	pthread_mutex_t	lock;
-}	t_fork;
+	pthread_t		thrd;
+	int				index;
+	int				lfork;
+	int				rfork;
+	int				first_taken;
+	int				second_taken;
+	int				id;
+	int				time_to_eat;
+	int				time_to_die;
+	int				time_to_sleep;
+	int				is_dead;
+	int				max_meal;
+	long long		last_meal;
+	struct s_args	*args;
+	pthread_mutex_t	check_meal_mutex;
+}	t_philo;
 
 typedef struct s_args
 {
@@ -35,29 +50,11 @@ typedef struct s_args
 	int				one_dead;
 	long long		start_simulation;
 	int				max_eat;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	*forks;//un mutex par philo
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	check_death;
+	t_philo		*philos;
 }	t_args;
-
-typedef struct s_philo
-{
-	int				index;
-	int				lfork;
-	int				rfork;
-	int				id;
-	int				r_frk_tkn;
-	int				l_frk_tkn;
-	int				time_to_eat;
-	int				time_to_die;
-	int				time_to_sleep;
-	int				is_dead;
-	int				max_meal;
-	long long		last_meal;
-	t_args			*args;
-	pthread_mutex_t	check_meal_mutex;
-}	t_philo;
 
 //utils.c
 int			ft_atoi(const char *str);
@@ -65,7 +62,7 @@ void		print_state(char *state, t_philo *philo);
 long long	timestamp(void);
 
 //threads.c
-void		create_threads(t_philo *philo, t_args *args);
+void		create_threads(t_args *args);
 void		*routine(void *arg);
 
 //eat.c
@@ -85,7 +82,7 @@ int			is_dead(t_args *args);
 
 //init.c
 void		parse_args(char **av, t_args *args);
-void		init_philo(t_philo **philo, t_args *args);
+void		init_philo(t_args *args);
 void		philo_attributes(t_philo *one_philo, int id, t_args *args);
 
 #endif

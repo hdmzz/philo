@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 15:19:22 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:47:33 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,46 +22,43 @@ void	philo_attributes(t_philo *one_philo, int id, t_args *args)
 		one_philo->lfork = id + 1;
 	one_philo->id = id + 1;
 	one_philo->is_dead = 0;
-	one_philo->r_frk_tkn = 0;
-	one_philo->l_frk_tkn = 0;
+	one_philo->first_taken = 0;
+	one_philo->second_taken = 0;
 	one_philo->is_dead = 0;
 	one_philo->time_to_die = args->time_to_die;
 	one_philo->time_to_eat = args->time_to_eat;
 	one_philo->time_to_sleep = args->time_to_sleep;
 	one_philo->args = args;
 	one_philo->last_meal = 0;
-	pthread_mutex_init(&one_philo->check_meal_mutex, NULL);
 }
 
-// static void	left_fork(t_philo **philo, int nb_philo, int i)
-// {
-// 	t_philo	*cur_philo;
-
-// 	cur_philo = &(*philo)[i];
-// 	if (nb_philo == 1)
-// 		cur_philo->l_fork = NULL;
-// 	if (i == nb_philo - 1)
-// 		cur_philo->l_fork = &(philo)[0]->r_fork;
-// 	else
-// 		cur_philo->l_fork = &(*philo)[i + 1].r_fork;
-// }
-
-void	init_philo(t_philo **philo, t_args *args)
+void	init_mutexes(t_args *args)
 {
 	int	i;
 
 	i = -1;
-	*philo = malloc(sizeof(t_philo) * args->nb_philo);
-	if (!(*philo))
+	while (++i < args->nb_philo)
+	{
+		pthread_mutex_init(&args->forks[i], NULL);
+		pthread_mutex_init(&args->philos[i].check_meal_mutex, NULL);
+	}
+	pthread_mutex_init(&args->print_mutex, NULL);
+	pthread_mutex_init(&args->check_death, NULL);
+}
+void	init_philo(t_args *args)
+{
+	int	i;
+
+	i = -1;
+	args->philos = malloc(sizeof(t_philo) * args->nb_philo);
+	if (!args->philos)
 		exit(EXIT_FAILURE);
 	while (++i < args->nb_philo)
-		philo_attributes(&(*philo)[i], i, args);
+		philo_attributes(&args->philos[i], i, args);
 	args->forks = malloc(sizeof(pthread_mutex_t) * args->nb_philo);
 	if (!args->forks)
 		return ;
-	i = -1;
-	while (++i < args->nb_philo)
-		pthread_mutex_init(&args->forks[i], NULL);
+	init_mutexes(args);
 }
 
 void	parse_args(char **av, t_args *args)
@@ -74,9 +71,4 @@ void	parse_args(char **av, t_args *args)
 	args->one_dead = 0;
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
-	pthread_mutex_init(&args->print_mutex, NULL);
-	pthread_mutex_init(&args->death_mutex, NULL);
-	pthread_mutex_init(&args->check_death, NULL);
-	
-	pthread_mutex_lock(&args->death_mutex);
 }

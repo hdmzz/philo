@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/14 15:43:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:04:41 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	death(t_philo *philo)
 				dead = 1;
 				print_state("died", philo);
 				pthread_mutex_unlock(&philo[i].check_meal_mutex);
-				pthread_mutex_unlock(&philo->args->death_mutex);
 				return ;
 			}
 			pthread_mutex_unlock(&philo[i].check_meal_mutex);

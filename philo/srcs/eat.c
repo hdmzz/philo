@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/13 16:48:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:49:01 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	take_fork(t_philo *philo)
 	{
 		pthread_mutex_lock(&forks[first]);
 		print_state("has taken a fork", philo);
-		philo->l_frk_tkn = 1;
+		philo->first_taken = 1;
 	}
 	pthread_mutex_lock(&forks[second]);
 	print_state("has taken a fork", philo);
-	philo->r_frk_tkn = 1;
+	philo->second_taken = 1;
 }
 
 void	release_fork(t_philo *philo)
@@ -42,15 +42,8 @@ void	release_fork(t_philo *philo)
 	pthread_mutex_t	*forks;
 
 	forks = philo->args->forks;
-	if (philo->r_frk_tkn)
-	{
-		pthread_mutex_unlock(&forks[philo->rfork]);
-		philo->r_frk_tkn = 0;
-	}
-	if (philo->l_frk_tkn)
-	{
-		pthread_mutex_unlock(&forks[philo->lfork]);
-		philo->l_frk_tkn = 0;
-	}
-	to_sleep(philo);
+	pthread_mutex_unlock(&forks[philo->rfork]);
+	philo->first_taken = 0;
+	pthread_mutex_unlock(&forks[philo->lfork]);
+	philo->second_taken = 0;
 }
