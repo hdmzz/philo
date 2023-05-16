@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 18:11:13 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:33:13 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	create_threads(t_args *args)//main thread
 		pthread_create(&philo->thrd, NULL, &routine, philo);
 		i++;
 	}
-	pthread_create(&args->death_thread, NULL, death, args);
+	pthread_create(&args->death_thread, NULL, &death, args);
 	return ;
 }
 
@@ -65,6 +65,5 @@ void	*routine(void *arg)
 			think(philo);
 		}
 	}
-	printf("hello");
 	return (0);
 }

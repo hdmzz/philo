@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 18:08:35 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:32:33 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	starving_death(t_philo *philo)
 		pthread_mutex_unlock(&philo->check_meal_mutex);
 		return (1);
 	}
+	pthread_mutex_unlock(&philo->check_meal_mutex);
 	return (0);
 }
 
