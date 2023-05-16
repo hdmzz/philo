@@ -6,46 +6,46 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/15 13:34:16 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:16:28 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	death(t_philo *philo)
+void	*death(void *a)
 {
-	int	dead;
-	long long	lst_meal;
+	t_args		*args;
 	int			i;
+	int			dead;
+	long long	cur_time;
 
+	args = (t_args *)a;
 	dead = 0;
 	while (!dead)
 	{
 		i = -1;
-		while (++i < philo->args->nb_philo)
+		while (++i < args->nb_philo && !dead)
 		{
-			pthread_mutex_lock(&philo[i].check_meal_mutex);
-			lst_meal = philo[i].last_meal;
-			pthread_mutex_unlock(&philo[i].check_meal_mutex);
-			if ((timestamp() - lst_meal) > philo->args->time_to_die)
+			cur_time = timestamp();
+			pthread_mutex_lock(&args->philos[i].check_meal_mutex);
+			if ((cur_time - args->philos[i].last_meal) > args->time_to_die)
 			{
-				print_state("died", philo);
-				pthread_mutex_lock(&philo->args->check_death);
-				philo->args->one_dead = 1;
-				pthread_mutex_unlock(&philo->args->check_death);
+				pthread_mutex_lock(&args->check_death);
+				args->one_dead = 1;
+				print_state("died", &args->philos[i]);
 				dead = 1;
 			}
-			// pthread_mutex_unlock(&philo[i].check_meal_mutex);
+			pthread_mutex_unlock(&args->philos[i].check_meal_mutex);
 		}
 	}
-	printf("hello");
-	return ;
+	return (0);
 }
 
-int	is_dead(t_args *args)
+int		check_death(t_args *args)
 {
 	int	ret;
 
+	ret = 0;
 	pthread_mutex_lock(&args->check_death);
 	ret = args->one_dead;
 	pthread_mutex_unlock(&args->check_death);

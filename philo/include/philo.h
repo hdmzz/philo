@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/15 13:21:14 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 14:20:20 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 
 typedef struct s_args
 {
+	pthread_t		death_thread;
 	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
@@ -64,7 +65,7 @@ long long	timestamp(void);
 //threads.c
 void		create_threads(t_args *args);
 void		*routine(void *arg);
-void	wait_and_end(t_args *args);
+void		wait_and_end(t_args *args);
 
 //eat.c
 void		take_fork(t_philo *philo);
@@ -72,14 +73,14 @@ void		release_fork(t_philo *philo);
 
 //sleep.c
 void		to_sleep(t_philo *philo);
-void		ft_sleep(long long time_to);
+void		ft_sleep(long long time_to, t_args *args);
 
 //think.c
 void		think(t_philo *philo);
 
 //death.c
-void		death(t_philo *philo);
-int			is_dead(t_args *args);
+void		*death(void *a);
+int		check_death(t_args *args);
 
 //init.c
 void		parse_args(char **av, t_args *args);

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/15 12:48:11 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/15 14:57:40 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	take_fork(t_philo *philo)
 	int				first;
 	int				second;
 
-	if (is_dead(philo->args))
-		return ;
 	first = philo->lfork;
 	second = philo->rfork;
 	if (philo->id % 2 == 0)
@@ -34,7 +32,9 @@ void	take_fork(t_philo *philo)
 		print_state("has taken a fork", philo);
 		philo->first_taken = 1;
 	}
-	pthread_mutex_lock(&forks[second]);
+	if (philo->second_taken)
+		return;
+	pthread_mutex_lock(&forks[second]);//deadlock
 	print_state("has taken a fork", philo);
 	philo->second_taken = 1;
 }
@@ -43,8 +43,6 @@ void	release_fork(t_philo *philo)
 {
 	pthread_mutex_t	*forks;
 
-	if (is_dead(philo->args))
-		return ;
 	forks = philo->args->forks;
 	pthread_mutex_unlock(&forks[philo->rfork]);
 	philo->first_taken = 0;
