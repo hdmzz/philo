@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 16:49:58 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:11:13 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@ void	create_threads(t_args *args)//main thread
 	{
 		philo = &args->philos[i];
 		pthread_create(&philo->thrd, NULL, &routine, philo);
-		pthread_mutex_lock(&args->philos[i].check_meal_mutex);
-		args->philos[i].last_meal = timestamp();
-		pthread_mutex_unlock(&args->philos[i].check_meal_mutex);
 		i++;
 	}
-	//death(args);
+	pthread_create(&args->death_thread, NULL, death, args);
 	return ;
 }
 
@@ -42,6 +39,7 @@ void	wait_and_end(t_args *args)
 		pthread_join(args->philos[i].thrd, NULL);
 		i++;
 	}
+	pthread_join(args->death_thread, NULL);
 }
 
 void	*routine(void *arg)
@@ -49,7 +47,10 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	while (!check_death(philo->args))
+	pthread_mutex_lock(&philo->check_meal_mutex);
+	philo->last_meal = philo->args->start_simulation;
+	pthread_mutex_unlock(&philo->check_meal_mutex);
+	while (check_death(philo->args) == 0)
 	{
 		take_fork(philo);
 		if (philo->first_taken && philo->second_taken)

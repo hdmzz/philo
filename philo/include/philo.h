@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 14:20:20 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 17:16:33 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ typedef struct s_args
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				one_dead;
+	int				one_dead;//stop flag
 	long long		start_simulation;
 	int				max_eat;
-	pthread_mutex_t	*forks;//un mutex par philo
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	check_death;
-	t_philo		*philos;
+	t_philo			*philos;
 }	t_args;
 
 //utils.c
