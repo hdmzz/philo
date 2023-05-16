@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 14:36:22 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:35:34 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	*death(void *a)
 			{
 				pthread_mutex_lock(&args->check_death);
 				args->one_dead = 1;
+				pthread_mutex_unlock(&args->check_death);
 				print_state("died", &args->philos[i]);
-				args->philos[i].is_dead = 1;
 				dead = 1;
 			}
 			pthread_mutex_unlock(&args->philos[i].check_meal_mutex);
