@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 18:32:33 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:47:55 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	*death(void *a)
 	{
 		if (one_is_dead(args))
 			return (NULL);
+		usleep(50);
 	}
 	return (NULL);
 }

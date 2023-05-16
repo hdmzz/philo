@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 16:34:44 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/16 18:56:15 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	ft_sleep(long long time_to, t_args*args)
 	{
 		start_time = timestamp();
 		while ((timestamp() - start_time) < time_to)
-			usleep(50);
+			usleep(100);
 	}
 }
