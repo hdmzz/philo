@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 17:16:33 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:42:53 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ typedef struct s_philo
 {
 	pthread_t		thrd;
 	int				index;
-	int				lfork;
 	int				rfork;
+	int				lfork;
+	int				first;
+	int				second;
 	int				first_taken;
 	int				second_taken;
 	int				id;
@@ -80,11 +82,11 @@ void		think(t_philo *philo);
 
 //death.c
 void		*death(void *a);
-int		check_death(t_args *args);
+int			check_death(t_args *args);
 
 //init.c
 void		parse_args(char **av, t_args *args);
 void		init_philo(t_args *args);
-void		philo_attributes(t_philo *one_philo, int id, t_args *args);
+void		philo_attributes(t_philo *philo, int id, t_args *args);
 
 #endif
