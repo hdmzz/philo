@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 13:22:45 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:23:26 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_sleep(long long time_to, t_args*args)
 		{
 			if (check_death(args))//on a recupere 100 ms mais la simulation ne sarrete pas encore
 				break ;
-			usleep(50);
+			usleep(100);
 		}
 	}
 }

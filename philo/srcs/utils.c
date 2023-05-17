@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/12 13:41:39 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:10:51 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ long long	timestamp(void)
 void	print_state(char *state, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->args->print_mutex);
+	if (check_death(philo->args))
+	{
+		pthread_mutex_unlock(&philo->args->print_mutex);
+		return ;
+	}
 	printf("%lld ", (timestamp() - philo->args->start_simulation));
 	printf("%d ", philo->id);
 	printf("%s\n", state);

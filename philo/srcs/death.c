@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/16 18:47:55 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:10:38 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static int	starving_death(t_philo *philo)
 	pthread_mutex_lock(&philo->check_meal_mutex);
 	if ((cur_time - philo->last_meal) > philo->args->time_to_die)
 	{
-		stop_simulation(philo->args);
 		print_state("died", philo);
+		stop_simulation(philo->args);
 		pthread_mutex_unlock(&philo->check_meal_mutex);
 		return (1);
 	}
@@ -58,7 +58,7 @@ void	*death(void *a)
 	{
 		if (one_is_dead(args))
 			return (NULL);
-		usleep(50);
+		usleep(100);
 	}
 	return (NULL);
 }
