@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 14:27:29 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:30:21 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ void	create_threads(t_args *args)//main thread
 	{
 		philo = &args->philos[i];
 		pthread_create(&philo->thrd, NULL, &routine, philo);
+		pthread_mutex_lock(&philo->check_meal_mutex);
+		philo->last_meal = philo->args->start_simulation;
+		pthread_mutex_unlock(&philo->check_meal_mutex);
 		i++;
 	}
-	usleep(10);
 	pthread_create(&args->death_thread, NULL, &death, args);
 	return ;
 }
@@ -60,9 +62,6 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(&philo->check_meal_mutex);
-	philo->last_meal = philo->args->start_simulation;
-	pthread_mutex_unlock(&philo->check_meal_mutex);
 	if (philo->args->nb_philo == 1)
 		return (only_one_philo(philo));
 	while (check_death(philo->args) == 0 )
