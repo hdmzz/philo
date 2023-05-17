@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 15:14:53 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:50:01 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 {
 	t_args	args;
 
-	if (ac > 5 || ac < 4)
+	if (ac - 1 < 4 || ac - 1 > 5)
 		return (0);
 	parse_args(av, &args);
 	init_philo(&args);

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 15:04:15 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:21:31 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 	else
 		philo->lfork = id + 1;
 	philo->id = id + 1;
-	philo->is_dead = 0;
 	philo->first_taken = 0;
 	philo->second_taken = 0;
 	philo->is_dead = 0;
@@ -30,6 +29,7 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 	philo->time_to_sleep = args->time_to_sleep;
 	philo->args = args;
 	philo->last_meal = 0;
+	philo->eat_count = 0;
 	philo->first = philo->lfork;
 	philo->second = philo->rfork;
 	if (philo->id % 2 == 0)

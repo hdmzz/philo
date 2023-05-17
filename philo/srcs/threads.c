@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 14:30:21 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:16:47 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	*routine(void *arg)
 			print_state("is eating", philo);
 			pthread_mutex_lock(&philo->check_meal_mutex);
 			philo->last_meal = timestamp();
+			philo->eat_count += 1;
 			pthread_mutex_unlock(&philo->check_meal_mutex);
 			ft_sleep(philo->time_to_eat, philo->args);
 			release_fork(philo);

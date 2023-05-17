@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 14:10:38 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/17 16:49:37 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	starving_death(t_philo *philo)
 	long long	cur_time;
 
 	cur_time = timestamp();
-	pthread_mutex_lock(&philo->check_meal_mutex);
 	if ((cur_time - philo->last_meal) > philo->args->time_to_die)
 	{
 		print_state("died", philo);
@@ -32,26 +31,37 @@ static int	starving_death(t_philo *philo)
 		pthread_mutex_unlock(&philo->check_meal_mutex);
 		return (1);
 	}
-	pthread_mutex_unlock(&philo->check_meal_mutex);
 	return (0);
 }
 
 static int		one_is_dead(t_args *args)
 {
-	int			i;
+	int	i;
+	int	all_full;
 
 	i = -1;
+	all_full = 1;
 	while (++i < args->nb_philo)
 	{
+		pthread_mutex_lock(&args->philos[i].check_meal_mutex);
 		if (starving_death(&args->philos[i]))
 			return (1);
+		if (args->max_eat != -1 && \
+			args->philos[i].eat_count < args->max_eat)
+			all_full = 0;
+		pthread_mutex_unlock(&args->philos[i].check_meal_mutex);
+	}
+	if (all_full)
+	{
+		stop_simulation(args);
+		return (1);
 	}
 	return (0);
 }
 
 void	*death(void *a)
 {
-	t_args		*args;
+	t_args	*args;
 
 	args = (t_args *)a;
 	while (1)
