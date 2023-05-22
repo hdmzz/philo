@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:25:31 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:05:51 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
+static int	only_one_philo(t_philo *philo)
+{
+	sem_wait(philo->args->forks_sem);
+	print_state("has taken a fork", philo);
+	ft_sleep(philo->time_to_die, philo->args);
+	return (1);
+}
+
 int	routine(t_philo *philo)
 {
-	sem_wait(philo->args->testsem);
-	printf("sem pris philo %d\n", philo->id);
-	sem_post(philo->args->testsem);
+	if (philo->args->nb_philo == 1)
+		return (only_one_philo(philo));
 	return (1);
 }
 

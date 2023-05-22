@@ -1,6 +1,7 @@
 NAME = philo_bonus
 
-SRC = $Smain_bonus.c $Sinit_bonus.c $Sutils_bonus.c
+SRC = $Smain_bonus.c $Sinit_bonus.c $Sutils_bonus.c $Sutils2_bonus.c $Sfork_bonus.c \
+		$Sdeath_bonus.c
 
 HEADER = include/philo_bonus.h
 

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/20 14:42:40 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 21:00:07 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ struct s_args;
 typedef struct s_philo
 {
 	pid_t			pid;
+	char			*meal_sem_name;
 	int				index;
 	int				rfork;
 	int				lfork;
@@ -43,6 +44,7 @@ typedef struct s_philo
 	int				eat_count;
 	long long		last_meal;
 	struct s_args	*args;
+	sem_t			*check_meal_sem;
 }	t_philo;
 
 typedef struct s_args
@@ -56,18 +58,28 @@ int			one_dead;
 long long	start_simulation;
 int			max_eat;
 t_philo		*philos;
-sem_t		*testsem;
+sem_t		*forks_sem;
+sem_t		*print_sem;
+sem_t		*check_death_sem;
 }	t_args;
 
 //main_bonus.c
 
-//init.c
-void	parse_args(char **av, t_args *args);
-void	init_philo(t_args *args);
+//init_bonus.c
+void		parse_args(char **av, t_args *args);
+void		init_philo(t_args *args);
 
 //utils_bonus.c
-void	print_state(char *state, t_philo *philo);
+void		print_state(char *state, t_philo *philo);
 long long	timestamp(void);
-int	ft_atoi(const char *str);
+int			ft_atoi(const char *str);
+char		*ft_itoa(int n);
+
+//utils2_bonus.c
+char		*ft_strjoin(char const *s1, char const *s2);
+void		ft_sleep(long long time_to, t_args*args);
+
+//death_bonus.c
+int			check_death(t_args *args);
 
 #endif
