@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:26:20 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:35:04 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	init_semaphores(t_args *args)
 {
-	// sem_unlink("/test");
+	sem_unlink("/test");
 	args->testsem = sem_open("/test", O_CREAT, 0644, 3);
-	// sem_unlink("/test");
 
 }
 
