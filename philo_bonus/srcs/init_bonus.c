@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 09:52:56 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:26:20 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void	init_semaphores(t_args *args)
 {
-	args->testsem = sem_open("/test", O_CREAT, 666, 2);
+	// sem_unlink("/test");
+	args->testsem = sem_open("/test", O_CREAT, 0644, 3);
+	// sem_unlink("/test");
+
 }
 
 void	philo_attributes(t_philo *philo, int id, t_args *args)
@@ -54,6 +57,7 @@ void	init_philo(t_args *args)
 		exit(EXIT_FAILURE);
 	while (++i < args->nb_philo)
 		philo_attributes(&args->philos[i], i, args);
+	init_semaphores(args);
 }
 
 void	parse_args(char **av, t_args *args)

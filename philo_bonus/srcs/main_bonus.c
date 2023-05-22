@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 09:54:24 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:25:31 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	routine(t_philo *philo)
 {
 	sem_wait(philo->args->testsem);
 	printf("sem pris philo %d\n", philo->id);
-	sleep(1);
 	sem_post(philo->args->testsem);
 	return (1);
 }
@@ -34,6 +33,19 @@ int	create_process(t_args *args)
 		i++;
 	}
 	return (0);
+}
+
+int	wait_and_end(t_args *args)//le main proces doit attendre tout les process enfants
+{
+	int	i;
+
+	i = 0;
+	while (i < args->nb_philo)
+	{
+		waitpid(args->philos[i].pid, NULL, 0);
+		i++;
+	}
+	return (1);
 }
 
 int	main(int ac, char **av)
