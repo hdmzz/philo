@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/20 14:32:15 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/20 14:42:40 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int			one_dead;
 long long	start_simulation;
 int			max_eat;
 t_philo		*philos;
+sem_t		*testsem;
 }	t_args;
 
 //main_bonus.c

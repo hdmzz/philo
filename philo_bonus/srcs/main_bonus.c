@@ -6,15 +6,18 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/20 14:33:16 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:54:24 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-int	routine()
+int	routine(t_philo *philo)
 {
-	printf("Pid is : %d\n", getpid());
+	sem_wait(philo->args->testsem);
+	printf("sem pris philo %d\n", philo->id);
+	sleep(1);
+	sem_post(philo->args->testsem);
 	return (1);
 }
 
@@ -27,7 +30,7 @@ int	create_process(t_args *args)
 	{
 		args->philos[i].pid = fork();
 		if (args->philos[i].pid == 0)
-			return (routine());
+			return (routine(&args->philos[i]));
 		i++;
 	}
 	return (0);
@@ -40,7 +43,7 @@ int	main(int ac, char **av)
 	parse_args(av, &args);
 	init_philo(&args);
 	create_process(&args);
-	// wait_and_end(&args);
+	wait_and_end(&args);
 	// free_all(&args);
 	return (0);
 }

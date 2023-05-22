@@ -6,11 +6,16 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/20 14:30:33 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 09:52:56 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
+
+void	init_semaphores(t_args *args)
+{
+	args->testsem = sem_open("/test", O_CREAT, 666, 2);
+}
 
 void	philo_attributes(t_philo *philo, int id, t_args *args)
 {
