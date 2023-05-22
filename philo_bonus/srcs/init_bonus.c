@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 14:35:04 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:21:56 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,13 @@ void	init_semaphores(t_args *args)
 {
 	sem_unlink("/test");
 	args->testsem = sem_open("/test", O_CREAT, 0644, 3);
-
+//Both read and write permission should be granted to each class of user that will access the semaphore
+//Read permission bit for other users. Usually 04.
+//Read permission bit for the group owner of the file. Usually 040
+//Read permission bit for the owner of the file. On many systems this bit is 0400
+//Write permission bit for the owner of the file. Usually 0200. 0200 + 0400 = 0600
+//0600 +040 = 0640
+//0640 + 04 = 0644
 }
 
 void	philo_attributes(t_philo *philo, int id, t_args *args)
