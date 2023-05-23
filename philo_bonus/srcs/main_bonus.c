@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 21:05:51 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:42:24 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,29 @@ static int	only_one_philo(t_philo *philo)
 	return (1);
 }
 
+void	think(t_philo *philo)
+{
+	print_state("is thinking", philo);
+}
+
 int	routine(t_philo *philo)
 {
 	if (philo->args->nb_philo == 1)
 		return (only_one_philo(philo));
+	while (1)
+	{
+		take_fork(philo);
+		take_fork(philo);
+		print_state("is eating", philo);
+		sem_wait(philo->check_meal_sem);
+		philo->last_meal = timestamp();
+		philo->eat_count += 1;
+		sem_post(philo->check_meal_sem);
+		ft_sleep(philo->time_to_eat, philo->args);
+		release_fork(philo);
+		to_sleep(philo);
+		think(philo);
+	}
 	return (1);
 }
 
@@ -32,11 +51,15 @@ int	create_process(t_args *args)
 	int	i;
 
 	i = 0;
+	args->start_simulation = timestamp();
 	while (i < args->nb_philo)
 	{
 		args->philos[i].pid = fork();
 		if (args->philos[i].pid == 0)
+		{
+			args->philos[i].last_meal = timestamp();
 			return (routine(&args->philos[i]));
+		}
 		i++;
 	}
 	return (0);

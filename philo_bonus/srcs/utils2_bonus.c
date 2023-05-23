@@ -6,13 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:12:28 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:58:36 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:30:50 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-static int	ft_strlen(char *str)
+static int	ft_strlen(const char *str)
 {
 	int	i;
 
@@ -45,14 +45,9 @@ void	ft_sleep(long long time_to, t_args*args)
 {
 	long long	start_time;
 
-	if (!check_death(args))
+	start_time = timestamp();
+	while ((timestamp() - start_time) < time_to)
 	{
-		start_time = timestamp();
-		while ((timestamp() - start_time) < time_to)
-		{
-			if (check_death(args))//on a recupere 100 ms mais la simulation ne sarrete pas encore
-				break ;
-			usleep(100);
-		}
+		usleep(100);
 	}
 }

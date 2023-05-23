@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:51:22 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:42:03 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 	philo->eat_count = 0;
 	philo->meal_sem_name = ft_strjoin("/check_meal_sem", ft_itoa(philo->id));
 	sem_unlink(philo->meal_sem_name);
-	sem_open(philo->meal_sem_name, O_CREAT, NULL, 0644, 1);
+	philo->check_meal_sem = sem_open(philo->meal_sem_name, O_CREAT, NULL, 0644, 1);
 }
 
 void	init_philo(t_args *args)

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 21:00:07 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:19:41 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,18 @@ typedef struct s_philo
 
 typedef struct s_args
 {
-pthread_t	death_thread;
-int			nb_philo;
-int			time_to_die;
-int			time_to_eat;
-int			time_to_sleep;
-int			one_dead;
-long long	start_simulation;
-int			max_eat;
-t_philo		*philos;
-sem_t		*forks_sem;
-sem_t		*print_sem;
-sem_t		*check_death_sem;
+	pthread_t	death_thread;
+	int			nb_philo;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			one_dead;
+	long long	start_simulation;
+	int			max_eat;
+	t_philo		*philos;
+	sem_t		*forks_sem;
+	sem_t		*print_sem;
+	sem_t		*check_death_sem;
 }	t_args;
 
 //main_bonus.c
@@ -81,5 +81,12 @@ void		ft_sleep(long long time_to, t_args*args);
 
 //death_bonus.c
 int			check_death(t_args *args);
+
+//fork_bonus.c
+void		take_fork(t_philo *philo);
+void		release_fork(t_philo *philo);
+
+//sleep_bonus.c
+void		to_sleep(t_philo *philo);
 
 #endif
