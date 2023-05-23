@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/23 09:19:41 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 10:52:10 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+#include <signal.h>
 struct s_args;
 
 typedef struct s_philo
@@ -80,6 +81,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 void		ft_sleep(long long time_to, t_args*args);
 
 //death_bonus.c
+void		*death(void *a);
 int			check_death(t_args *args);
 
 //fork_bonus.c

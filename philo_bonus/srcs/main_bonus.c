@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/23 09:42:24 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 11:53:37 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int	create_process(t_args *args)
 		}
 		i++;
 	}
+	//pthread_create(&args->death_thread, NULL, &death, args);
+	//pthread_detach(args->death_thread);
+	//pthread_join(args->death_thread, NULL);
 	return (0);
 }
 
