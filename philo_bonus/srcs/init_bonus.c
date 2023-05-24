@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 12:41:32 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:14:29 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	init_semaphores(t_args *args)
 	sem_unlink("/forks_sem");
 	sem_unlink("/check_death_sem");
 	sem_unlink("/print_sem");
+	sem_unlink("/stop_sem");
 	args->forks_sem = sem_open("/forks_sem", O_CREAT, 0644, args->nb_philo);
 	args->check_death_sem = sem_open("/check_death_sem", O_CREAT, 0644, 1);
 	args->print_sem = sem_open("/print_sem", O_CREAT, 0644, 1);
+	args->stop_sem = sem_open("/stop_sem", O_CREAT, 0644, 1);
 //Both read and write permission should be granted to each class of user that will access the semaphore
 //Read permission bit for other users. Usually 04.
 //Read permission bit for the group owner of the file. Usually 040

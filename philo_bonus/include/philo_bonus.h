@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 12:32:11 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 13:25:49 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ struct s_args;
 typedef struct s_philo
 {
 	pid_t			pid;
+	pthread_t		one_death_thread;
 	char			*meal_sem_name;//penser a free
 	int				index;
 	int				rfork;
@@ -51,6 +52,7 @@ typedef struct s_philo
 typedef struct s_args
 {
 	pthread_t	death_thread;
+	sem_t		*stop_sem;
 	int			nb_philo;
 	int			time_to_die;
 	int			time_to_eat;
@@ -83,6 +85,9 @@ void		ft_sleep(long long time_to, t_args*args);
 //death_bonus.c
 void		*death(void *a);
 int			check_death(t_args *args);
+void		stop_simulation(t_args *args);
+void		*global_death(void *a);
+
 
 //fork_bonus.c
 void		take_fork(t_philo *philo);

@@ -5,5 +5,5 @@ SRC = $Smain_bonus.c $Sinit_bonus.c $Sutils_bonus.c $Sutils2_bonus.c $Sfork_bonu
 
 HEADER = include/philo_bonus.h
 
-CC = gcc -g3 -pthread #-fsanitize=thread
+CC = gcc -g3 -pthread -fsanitize=thread
 CFLAGS = -Wall -Wextra -Werror
