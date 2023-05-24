@@ -6,19 +6,21 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 13:21:13 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:29:50 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-static int	only_one_philo(t_philo *philo)
-{
-	sem_wait(philo->args->forks_sem);
-	print_state("has taken a fork", philo);
-	ft_sleep(philo->time_to_die, philo->args);
-	return (1);
-}
+// static int	only_one_philo(t_philo *philo)
+// {
+// 	pthread_create(&philo->one_death_thread, NULL, death, philo);
+// 	pthread_detach(philo->one_death_thread);
+// 	sem_wait(philo->args->forks_sem);
+// 	print_state("has taken a fork", philo);
+// 	ft_sleep(philo->time_to_die, philo->args);
+// 	return (1);
+// }
 
 void	think(t_philo *philo)
 {
@@ -27,11 +29,13 @@ void	think(t_philo *philo)
 
 int	routine(t_philo *philo)
 {
+	sem_wait(philo->check_meal_sem);
 	philo->last_meal = timestamp();
 	sem_post(philo->check_meal_sem);
+	// if (philo->args->nb_philo == 1)
+	// 	return (only_one_philo(philo));
 	pthread_create(&philo->one_death_thread, NULL, death, philo);
-	if (philo->args->nb_philo == 1)
-		return (only_one_philo(philo));
+	pthread_detach(philo->one_death_thread);
 	while (1)
 	{
 		take_fork(philo);
@@ -46,6 +50,7 @@ int	routine(t_philo *philo)
 		to_sleep(philo);
 		think(philo);
 	}
+
 	return (1);
 }
 
@@ -59,7 +64,6 @@ int	create_process(t_args *args)
 	while (i < args->nb_philo)
 	{
 		args->philos[i].pid = fork();
-		sem_wait(args->philos[i].check_meal_sem);
 		if (args->philos[i].pid == 0)
 			return (routine(&args->philos[i]));
 		i++;
