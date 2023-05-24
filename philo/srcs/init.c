@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 16:21:31 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:39:48 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,19 @@ void	init_philo(t_args *args)
 	init_mutexes(args);
 }
 
-void	parse_args(char **av, t_args *args)
+int	parse_args(int ac, char **av, t_args *args)
 {
+	int	i;
+
+	i = 0;
+	while (++i < ac)
+	{
+		if (!only_digits(av[i]))
+			return (0);
+	}
 	args->nb_philo = ft_atoi(av[1]);
+	if (args->nb_philo > 200)
+		return(0);
 	args->time_to_die = ft_atoi(av[2]);
 	args->time_to_eat = ft_atoi(av[3]);
 	args->time_to_sleep = ft_atoi(av[4]);
@@ -79,4 +89,5 @@ void	parse_args(char **av, t_args *args)
 	args->one_dead = 0;
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
+	return (1);
 }

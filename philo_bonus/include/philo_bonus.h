@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 11:59:49 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:32:11 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_args
 //main_bonus.c
 
 //init_bonus.c
-void		parse_args(int ac, char **av, t_args *args);
+int		parse_args(int ac, char **av, t_args *args);
 void		init_philo(t_args *args);
 
 //utils_bonus.c

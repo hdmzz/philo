@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 16:15:08 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:40:50 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		*death(void *a);
 int			check_death(t_args *args);
 
 //init.c
-void		parse_args(char **av, t_args *args);
+int			parse_args(int ac, char **av, t_args *args);
 void		init_philo(t_args *args);
 void		philo_attributes(t_philo *philo, int id, t_args *args);
 

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 12:01:06 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 12:41:32 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,19 @@ static int	only_digits(char *str)
 	return (1);
 }
 
-void	parse_args(int ac, char **av, t_args *args)
+int	parse_args(int ac, char **av, t_args *args)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (++i < ac)
-		if (only_digits(av[i]))
+	{
+		if (!only_digits(av[i]))
 			return (0);
+	}
 	args->nb_philo = ft_atoi(av[1]);
+	if (args->nb_philo > 200)
+		return (0);
 	args->time_to_die = ft_atoi(av[2]);
 	args->time_to_eat = ft_atoi(av[3]);
 	args->time_to_sleep = ft_atoi(av[4]);
