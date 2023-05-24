@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 14:29:50 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:19:06 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	routine(t_philo *philo)
 	sem_wait(philo->check_meal_sem);
 	philo->last_meal = timestamp();
 	sem_post(philo->check_meal_sem);
-	// if (philo->args->nb_philo == 1)
-	// 	return (only_one_philo(philo));
 	pthread_create(&philo->one_death_thread, NULL, death, philo);
 	pthread_detach(philo->one_death_thread);
 	while (1)
@@ -50,7 +48,6 @@ int	routine(t_philo *philo)
 		to_sleep(philo);
 		think(philo);
 	}
-
 	return (1);
 }
 
@@ -69,12 +66,11 @@ int	create_process(t_args *args)
 		i++;
 	}
 	pthread_create(&args->death_thread, NULL, &global_death, args);
-	// pthread_detach(args->death_thread);
 	pthread_join(args->death_thread, NULL);
 	return (0);
 }
 
-int	wait_and_end(t_args *args)//le main proces doit attendre tout les process enfants
+int	wait_and_end(t_args *args)
 {
 	int	i;
 
@@ -93,10 +89,10 @@ int	main(int ac, char **av)
 
 	if (ac - 1 < 4 || ac - 1 > 5)
 		return (1);
-	parse_args(ac, av, &args);
+	if (!parse_args(ac, av, &args))
+		exit(EXIT_FAILURE);
 	init_philo(&args);
 	create_process(&args);
 	wait_and_end(&args);
-	// free_all(&args);
 	return (0);
 }

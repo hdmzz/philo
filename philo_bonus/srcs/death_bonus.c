@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 14:23:30 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:07:34 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int	is_dead(t_philo *philo)
 	sem_post(philo->check_meal_sem);
 	return (0);
 }
+
 //death sera lance par chaque process autrement dit chaque philo verifi sa propre mort
 //il faudrat aussi faireen sorte quen cas de mort chaque philo puisse faire en sorte darreter tout les autres
 //peut etre utiliser un semaphore que lon wait et que lon post lors de la mort de lun ce aui entraine 
@@ -71,12 +72,12 @@ void	*death(void *a)
 	{
 		if (is_dead(philo))
 			return (NULL);
-		usleep(500);
+		usleep(50);
 	}
 	return (NULL);
 }
 
-int		check_death(t_args *args)
+int	check_death(t_args *args)
 {
 	int	ret;
 

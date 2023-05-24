@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 13:25:49 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:05:05 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/wait.h>
-#include <signal.h>
-struct s_args;
+# include <signal.h>
+
+struct	s_args;
 
 typedef struct s_philo
 {
 	pid_t			pid;
 	pthread_t		one_death_thread;
-	char			*meal_sem_name;//penser a free
+	char			*meal_sem_name;
 	int				index;
 	int				rfork;
 	int				lfork;
@@ -69,7 +70,7 @@ typedef struct s_args
 //main_bonus.c
 
 //init_bonus.c
-int		parse_args(int ac, char **av, t_args *args);
+int			parse_args(int ac, char **av, t_args *args);
 void		init_philo(t_args *args);
 
 //utils_bonus.c
@@ -87,7 +88,6 @@ void		*death(void *a);
 int			check_death(t_args *args);
 void		stop_simulation(t_args *args);
 void		*global_death(void *a);
-
 
 //fork_bonus.c
 void		take_fork(t_philo *philo);

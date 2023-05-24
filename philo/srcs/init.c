@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 12:39:48 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:19:37 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	parse_args(int ac, char **av, t_args *args)
 			return (0);
 	}
 	args->nb_philo = ft_atoi(av[1]);
-	if (args->nb_philo > 200)
-		return(0);
+	if (args->nb_philo > 200 || args->nb_philo < 1)
+		return (0);
 	args->time_to_die = ft_atoi(av[2]);
 	args->time_to_eat = ft_atoi(av[3]);
 	args->time_to_sleep = ft_atoi(av[4]);
