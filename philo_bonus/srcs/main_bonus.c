@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/23 11:53:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/24 11:59:24 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	think(t_philo *philo)
 
 int	routine(t_philo *philo)
 {
+	philo->last_meal = timestamp();
+	sem_post(philo->check_meal_sem);
 	if (philo->args->nb_philo == 1)
 		return (only_one_philo(philo));
 	while (1)
@@ -55,16 +57,14 @@ int	create_process(t_args *args)
 	while (i < args->nb_philo)
 	{
 		args->philos[i].pid = fork();
+		sem_wait(args->philos[i].check_meal_sem);
 		if (args->philos[i].pid == 0)
-		{
-			args->philos[i].last_meal = timestamp();
 			return (routine(&args->philos[i]));
-		}
 		i++;
 	}
-	//pthread_create(&args->death_thread, NULL, &death, args);
+	pthread_create(&args->death_thread, NULL, &death, args);
 	//pthread_detach(args->death_thread);
-	//pthread_join(args->death_thread, NULL);
+	pthread_join(args->death_thread, NULL);
 	return (0);
 }
 
@@ -85,7 +85,9 @@ int	main(int ac, char **av)
 {
 	t_args	args;
 
-	parse_args(av, &args);
+	if (ac - 1 < 4 || ac - 1 > 5)
+		return (1);
+	parse_args(ac, av, &args);
 	init_philo(&args);
 	create_process(&args);
 	wait_and_end(&args);

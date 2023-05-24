@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/23 10:58:58 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:00:33 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 static void	stop_simulation(t_args *args)
 {
-	kill(0, SIGTERM);
+	int	i;
+
+	i = 0;
+	while (i < args->nb_philo)
+	{
+		kill(args->philos[i].pid, SIGTERM);
+		i++;
+	}
 }
 
 static int	starving_death(t_philo *philo)
