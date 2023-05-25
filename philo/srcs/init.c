@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 15:04:15 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:16:10 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 	philo->is_dead = 0;
 	philo->first_taken = 0;
 	philo->second_taken = 0;
-	philo->is_dead = 0;
 	philo->time_to_die = args->time_to_die;
+	philo->is_dead = 0;
 	philo->time_to_eat = args->time_to_eat;
 	philo->time_to_sleep = args->time_to_sleep;
 	philo->args = args;
@@ -37,6 +37,8 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 		philo->first = philo->rfork;
 		philo->second = philo->lfork;
 	}
+	philo->max_meal = args->max_eat;
+	philo->count_meal = 0;
 }
 
 void	init_mutexes(t_args *args)
@@ -72,6 +74,8 @@ void	init_philo(t_args *args)
 void	parse_args(char **av, t_args *args)
 {
 	args->nb_philo = ft_atoi(av[1]);
+	if (args->nb_philo > 200 || args->nb_philo < 1)
+		return ;
 	args->time_to_die = ft_atoi(av[2]);
 	args->time_to_eat = ft_atoi(av[3]);
 	args->time_to_sleep = ft_atoi(av[4]);
@@ -79,4 +83,6 @@ void	parse_args(char **av, t_args *args)
 	args->one_dead = 0;
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
+	else
+		args->max_eat = -1;
 }
