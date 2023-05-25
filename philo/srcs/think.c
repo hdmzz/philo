@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   think.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 14:14:16 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:35:45 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	think(t_philo *philo)
+int	think(t_philo *philo)
 {
-	print_state("is thinking", philo);
+	if (check_death(philo->args))
+		return (0);
+	return (print_state("is thinking", philo));
+	
 }

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:15:35 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:14:12 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_args
 
 //utils.c
 int			ft_atoi(const char *str);
-void		print_state(char *state, t_philo *philo);
+int			print_state(char *state, t_philo *philo);
 long long	timestamp(void);
 
 //threads.c
@@ -71,22 +71,22 @@ void		*routine(void *arg);
 void		wait_and_end(t_args *args);
 
 //eat.c
-void		take_fork(t_philo *philo);
+int			take_fork(t_philo *philo);
 void		release_fork(t_philo *philo);
 
 //sleep.c
-void		to_sleep(t_philo *philo);
+int		to_sleep(t_philo *philo);
 void		ft_sleep(long long time_to, t_args *args);
 
 //think.c
-void		think(t_philo *philo);
+int			think(t_philo *philo);
 
 //death.c
 void		*death(void *a);
 int			check_death(t_args *args);
 
 //init.c
-void		parse_args(char **av, t_args *args);
+int			parse_args(int ac, char **av, t_args *args);
 void		init_philo(t_args *args);
 void		philo_attributes(t_philo *philo, int id, t_args *args);
 

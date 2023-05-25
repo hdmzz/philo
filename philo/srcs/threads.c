@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:21:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:05:23 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	wait_and_end(t_args *args)
 	i = 0;
 	while (i < args->nb_philo)
 	{
-		pthread_join(args->philos[i].thrd, NULL);
+		if (pthread_join(args->philos[i].thrd, NULL))
+			return ;
 		i++;
 	}
 	pthread_join(args->death_thread, NULL);
@@ -66,18 +67,25 @@ void	*routine(void *arg)
 		return (only_one_philo(philo));
 	while (check_death(philo->args) == 0 )
 	{
-		take_fork(philo);
+		if (!take_fork(philo))
+			return (0);
 		if (philo->first_taken && philo->second_taken)
 		{
-			print_state("is eating", philo);
+			if (!print_state("is eating", philo))
+			{
+				release_fork(philo);
+				return (0);
+			}
 			pthread_mutex_lock(&philo->check_meal_mutex);
 			philo->last_meal = timestamp();
 			philo->count_meal += 1;
 			pthread_mutex_unlock(&philo->check_meal_mutex);
 			ft_sleep(philo->time_to_eat, philo->args);
 			release_fork(philo);
-			to_sleep(philo);
-			think(philo);
+			if (!to_sleep(philo))
+				return (0);
+			if (!think(philo))
+				return (0);
 		}
 	}
 	return (NULL);

@@ -3,22 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   sleep.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 13:23:26 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:39:39 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	to_sleep(t_philo *philo)
+int	to_sleep(t_philo *philo)
 {
 	if (philo)
 	{
-		print_state("is sleeping", philo);
-		ft_sleep(philo->time_to_sleep, philo->args);
+		if (print_state("is sleeping", philo))
+		{
+			ft_sleep(philo->time_to_sleep, philo->args);
+			return (1);
+		}
 	}
+	return (0);
 }
 
 void	ft_sleep(long long time_to, t_args*args)
@@ -30,7 +34,7 @@ void	ft_sleep(long long time_to, t_args*args)
 		start_time = timestamp();
 		while ((timestamp() - start_time) < time_to)
 		{
-			if (check_death(args))//on a recupere 100 ms mais la simulation ne sarrete pas encore
+			if (check_death(args))
 				break ;
 			usleep(100);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 14:10:51 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:34:52 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,17 @@ long long	timestamp(void)
 	return (t.tv_sec * 1000LL + t.tv_usec / 1000);
 }
 
-void	print_state(char *state, t_philo *philo)
+int		print_state(char *state, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->args->print_mutex);
 	if (check_death(philo->args))
 	{
 		pthread_mutex_unlock(&philo->args->print_mutex);
-		return ;
+		return (0);
 	}
 	printf("%lld ", (timestamp() - philo->args->start_simulation));
 	printf("%d ", philo->id);
 	printf("%s\n", state);
 	pthread_mutex_unlock(&philo->args->print_mutex);
+	return (1);
 }
