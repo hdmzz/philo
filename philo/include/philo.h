@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/17 16:15:08 by hdamitzi         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/25 12:15:35 by hdamitzi         ###   ########.fr       */
+>>>>>>> version-ok
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +42,11 @@ typedef struct s_philo
 	int				time_to_sleep;
 	int				is_dead;
 	int				max_meal;
+<<<<<<< HEAD
 	int				eat_count;
+=======
+	int				count_meal;
+>>>>>>> version-ok
 	long long		last_meal;
 	struct s_args	*args;
 	pthread_mutex_t	check_meal_mutex;

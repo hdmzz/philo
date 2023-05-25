@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/17 16:16:47 by hdamitzi         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/25 12:21:37 by hdamitzi         ###   ########.fr       */
+>>>>>>> version-ok
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +76,11 @@ void	*routine(void *arg)
 			print_state("is eating", philo);
 			pthread_mutex_lock(&philo->check_meal_mutex);
 			philo->last_meal = timestamp();
+<<<<<<< HEAD
 			philo->eat_count += 1;
+=======
+			philo->count_meal += 1;
+>>>>>>> version-ok
 			pthread_mutex_unlock(&philo->check_meal_mutex);
 			ft_sleep(philo->time_to_eat, philo->args);
 			release_fork(philo);

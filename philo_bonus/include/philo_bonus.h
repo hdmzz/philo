@@ -6,7 +6,11 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/20 14:42:40 by hdamitzi         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/24 15:05:05 by hdamitzi         ###   ########.fr       */
+>>>>>>> version-ok
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +26,22 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+<<<<<<< HEAD
 struct s_args;
+=======
+# include <signal.h>
+
+struct	s_args;
+>>>>>>> version-ok
 
 typedef struct s_philo
 {
 	pid_t			pid;
+<<<<<<< HEAD
+=======
+	pthread_t		one_death_thread;
+	char			*meal_sem_name;
+>>>>>>> version-ok
 	int				index;
 	int				rfork;
 	int				lfork;
@@ -43,10 +58,15 @@ typedef struct s_philo
 	int				eat_count;
 	long long		last_meal;
 	struct s_args	*args;
+<<<<<<< HEAD
+=======
+	sem_t			*check_meal_sem;
+>>>>>>> version-ok
 }	t_philo;
 
 typedef struct s_args
 {
+<<<<<<< HEAD
 pthread_t	death_thread;
 int			nb_philo;
 int			time_to_die;
@@ -57,10 +77,26 @@ long long	start_simulation;
 int			max_eat;
 t_philo		*philos;
 sem_t		*testsem;
+=======
+	pthread_t	death_thread;
+	sem_t		*stop_sem;
+	int			nb_philo;
+	int			time_to_die;
+	int			time_to_eat;
+	int			time_to_sleep;
+	int			one_dead;
+	long long	start_simulation;
+	int			max_eat;
+	t_philo		*philos;
+	sem_t		*forks_sem;
+	sem_t		*print_sem;
+	sem_t		*check_death_sem;
+>>>>>>> version-ok
 }	t_args;
 
 //main_bonus.c
 
+<<<<<<< HEAD
 //init.c
 void	parse_args(char **av, t_args *args);
 void	init_philo(t_args *args);
@@ -69,5 +105,33 @@ void	init_philo(t_args *args);
 void	print_state(char *state, t_philo *philo);
 long long	timestamp(void);
 int	ft_atoi(const char *str);
+=======
+//init_bonus.c
+int			parse_args(int ac, char **av, t_args *args);
+void		init_philo(t_args *args);
+
+//utils_bonus.c
+void		print_state(char *state, t_philo *philo);
+long long	timestamp(void);
+int			ft_atoi(const char *str);
+char		*ft_itoa(int n);
+
+//utils2_bonus.c
+char		*ft_strjoin(char const *s1, char const *s2);
+void		ft_sleep(long long time_to, t_args*args);
+
+//death_bonus.c
+void		*death(void *a);
+int			check_death(t_args *args);
+void		stop_simulation(t_args *args);
+void		*global_death(void *a);
+
+//fork_bonus.c
+void		take_fork(t_philo *philo);
+void		release_fork(t_philo *philo);
+
+//sleep_bonus.c
+void		to_sleep(t_philo *philo);
+>>>>>>> version-ok
 
 #endif
