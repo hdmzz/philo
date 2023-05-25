@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:21:03 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:31:29 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	all_full(t_args *args)
 		if (philos[i].count_meal < args->max_eat)
 			all_full = 0;
 		pthread_mutex_unlock(&philos[i].check_meal_mutex);
-		
 		i++;
 	}
 	return (all_full);
@@ -67,8 +66,6 @@ static int		one_is_dead(t_args *args)
 	{
 		if (starving_death(&args->philos[i]))
 			return (1);
-		if (args->max_eat != -1 && all_full(args))
-			return (1);
 	}
 	return (0);
 }
@@ -82,6 +79,8 @@ void	*death(void *a)
 	{
 		if (one_is_dead(args))
 			return (NULL);
+		if (args->max_eat != -1 && all_full(args))
+			stop_simulation(args);
 		usleep(100);
 	}
 	return (NULL);
