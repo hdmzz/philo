@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/26 09:49:07 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:27:47 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	wait_and_end(t_args *args)
 			return ;
 		i++;
 	}
-	pthread_join(args->death_thread, NULL);
 }
 
 static void	*only_one_philo(t_philo *philo)
@@ -56,6 +55,22 @@ static void	*only_one_philo(t_philo *philo)
 	ft_sleep(philo->time_to_die, philo->args);
 	pthread_mutex_unlock(&forks[philo->first]);
 	return (NULL);
+}
+
+void	unlock_destroy_mtx(t_philo *philo)
+{
+	if (philo->first_taken)
+	{
+		pthread_mutex_unlock(&philo->args->forks[philo->first]);
+		pthread_mutex_destroy(&philo->args->forks[philo->first]);
+	}
+	else if (philo->second_taken)
+	{
+		pthread_mutex_unlock(&philo->args->forks[philo->second]);
+		pthread_mutex_destroy(&philo->args->forks[philo->second]);
+	}
+	else
+		return ;
 }
 
 void	*routine(void *arg)
@@ -88,5 +103,6 @@ void	*routine(void *arg)
 				break ;
 		}
 	}
+	unlock_destroy_mtx(philo);
 	return (NULL);
 }

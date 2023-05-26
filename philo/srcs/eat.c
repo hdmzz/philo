@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 16:07:02 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:15:48 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	release_fork(t_philo *philo)
 	pthread_mutex_t	*forks;
 
 	forks = philo->args->forks;
-	pthread_mutex_unlock(&forks[philo->rfork]);
 	philo->first_taken = 0;
-	pthread_mutex_unlock(&forks[philo->lfork]);
+	pthread_mutex_unlock(&forks[philo->first]);
 	philo->second_taken = 0;
+	pthread_mutex_unlock(&forks[philo->second]);
 }
