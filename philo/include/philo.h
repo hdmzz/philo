@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 16:14:12 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 15:33:46 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void		*routine(void *arg);
 void		wait_and_end(t_args *args);
 
 //eat.c
-int			take_fork(t_philo *philo);
+void			eat_sleep(t_philo *philo);
 void		release_fork(t_philo *philo);
 
 //sleep.c
-int		to_sleep(t_philo *philo);
+int			to_sleep(t_philo *philo);
 void		ft_sleep(long long time_to, t_args *args);
 
 //think.c

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/26 13:27:47 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 16:10:18 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,13 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->args->nb_philo == 1)
 		return (only_one_philo(philo));
-	while (1)
+	if (philo->id % 2 == 0)
+		ft_sleep(philo->time_to_eat, philo->args);
+	while (!check_death(philo->args))
 	{
-		if (!take_fork(philo))
-			return (0);
-		if (philo->first_taken && philo->second_taken)
-		{
-			if (!print_state("is eating", philo))
-			{
-				release_fork(philo);
-				break ;
-			}
-			pthread_mutex_lock(&philo->check_meal_mutex);
-			philo->last_meal = timestamp();
-			philo->count_meal += 1;
-			pthread_mutex_unlock(&philo->check_meal_mutex);
-			ft_sleep(philo->time_to_eat, philo->args);
-			release_fork(philo);
-			if (!to_sleep(philo))
-				break ;
-			if (!think(philo))
-				break ;
-		}
+		eat_sleep(philo);
+		think(philo);
 	}
-	unlock_destroy_mtx(philo);
+	//unlock_destroy_mtx(philo);
 	return (NULL);
 }
