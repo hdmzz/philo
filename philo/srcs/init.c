@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 15:39:05 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 09:44:32 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 {
 	philo->index = id;
 	philo->rfork = id;
-	if (id == args->nb_philo - 1)
-		philo->lfork = 0;
-	else
-		philo->lfork = id + 1;
+	philo->lfork = (id + 1) % args->nb_philo;
 	philo->id = id + 1;
 	philo->is_dead = 0;
 	philo->first_taken = 0;

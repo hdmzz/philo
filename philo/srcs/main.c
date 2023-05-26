@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 16:19:16 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 09:45:39 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,10 @@
 void	free_all(t_args *args)
 {
 	int	i;
-	pthread_mutex_t	*forks;
-	t_philo			*philo;
 
 	i = -1;
-	forks = args->forks;
 	while (++i < args->nb_philo)
 	{
-		philo = &args->philos[i];
-		if (philo->first_taken)
-			pthread_mutex_unlock(&forks[philo->first]);
-		if (philo->second_taken)
-			pthread_mutex_unlock(&forks[philo->second]);
 		pthread_mutex_destroy(&args->forks[i]);
 		pthread_mutex_destroy(&args->philos[i].check_meal_mutex);
 	}

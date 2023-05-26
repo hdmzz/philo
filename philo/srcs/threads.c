@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 16:05:23 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/26 09:49:07 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	create_threads(t_args *args)//main thread
 		pthread_mutex_unlock(&philo->check_meal_mutex);
 		i++;
 	}
-	pthread_create(&args->death_thread, NULL, &death, args);
+	death(args);
 	return ;
 }
 
@@ -65,7 +65,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->args->nb_philo == 1)
 		return (only_one_philo(philo));
-	while (check_death(philo->args) == 0 )
+	while (1)
 	{
 		if (!take_fork(philo))
 			return (0);
@@ -74,7 +74,7 @@ void	*routine(void *arg)
 			if (!print_state("is eating", philo))
 			{
 				release_fork(philo);
-				return (0);
+				break ;
 			}
 			pthread_mutex_lock(&philo->check_meal_mutex);
 			philo->last_meal = timestamp();
@@ -83,9 +83,9 @@ void	*routine(void *arg)
 			ft_sleep(philo->time_to_eat, philo->args);
 			release_fork(philo);
 			if (!to_sleep(philo))
-				return (0);
+				break ;
 			if (!think(philo))
-				return (0);
+				break ;
 		}
 	}
 	return (NULL);
