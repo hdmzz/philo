@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/28 20:32:39 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 12:56:34 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ struct s_args;
 typedef struct s_philo
 {
 	pthread_t		thrd;
-	int				index;
+	int				ate_enough;
 	int				rfork;
 	int				lfork;
 	int				first;
@@ -76,7 +76,7 @@ void		release_fork(t_philo *philo);
 
 //sleep.c
 void		to_sleep(t_philo *philo);
-void		ft_sleep(long long time_to, t_args *args);
+void		ft_sleep(long long time_to);
 
 //think.c
 void		think(t_philo *philo);

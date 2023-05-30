@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/28 21:04:06 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 12:47:45 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	stop_simulation(t_args *args)
 	args->one_dead = 1;
 	pthread_mutex_unlock(&args->check_death);
 }
+
 
 static int	starving_death(t_philo *philo)
 {

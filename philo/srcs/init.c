@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/28 20:37:20 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 12:20:49 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	philo_attributes(t_philo *philo, int id, t_args *args)
 {
-	philo->index = id;
+	philo->ate_enough = 0;
 	philo->rfork = id;
 	if (id == args->nb_philo - 1)
 		philo->lfork = 0;
