@@ -6,13 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 12:56:46 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:27:49 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	create_threads(t_args *args)//main thread
+void	create_threads(t_args *args)
 {
 	int			i;
 	t_philo		*philo;

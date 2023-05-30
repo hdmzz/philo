@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 12:56:34 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:26:22 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-struct s_args;
+struct	s_args;
 
 typedef struct s_philo
 {
@@ -73,6 +73,7 @@ void		wait_and_end(t_args *args);
 //eat.c
 void		take_fork(t_philo *philo);
 void		release_fork(t_philo *philo);
+int			all_full(t_args *args);
 
 //sleep.c
 void		to_sleep(t_philo *philo);

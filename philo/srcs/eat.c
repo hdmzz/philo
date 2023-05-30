@@ -6,11 +6,31 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 12:57:00 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:26:44 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+int	all_full(t_args *args)
+{
+	t_philo	*philos;
+	int		i;
+	int		all_full;
+
+	all_full = 1;
+	i = 0;
+	philos = args->philos;
+	while (i < args->nb_philo)
+	{
+		pthread_mutex_lock(&philos[i].check_meal_mutex);
+		if (philos[i].ate_enough != 1)
+			all_full = 0;
+		pthread_mutex_unlock(&philos[i].check_meal_mutex);
+		i++;
+	}
+	return (all_full);
+}
 
 int	is_philo_full(t_args *args, t_philo *philo)
 {

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 12:20:49 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:27:06 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	only_digits(char *str)
 int	parse_args(char **av, t_args *args, int ac)
 {
 	int	i;
-	
+
 	i = 0;
 	while (++i < ac)
 	{
