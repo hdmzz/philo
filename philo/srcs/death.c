@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 14:26:56 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:05:36 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	*death(void *a)
 	t_args		*args;
 
 	args = (t_args *)a;
+	start_synchro(args->start_simulation);
 	while (1)
 	{
 		if (one_is_dead(args))

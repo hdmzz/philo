@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 14:26:44 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:49:35 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ void	take_fork(t_philo *philo)
 	print_state("has taken a fork", philo);
 	pthread_mutex_lock(&forks[philo->second]);
 	print_state("has taken a fork", philo);
+	print_state("is eating", philo);
 	pthread_mutex_lock(&philo->check_meal_mutex);
 	philo->last_meal = timestamp();
 	pthread_mutex_unlock(&philo->check_meal_mutex);
-	print_state("is eating", philo);
+	ft_sleep(philo->time_to_eat);
 	philo->count_meal += 1;
 	is_philo_full(philo->args, philo);
-	ft_sleep(philo->time_to_eat);
 	pthread_mutex_unlock(&philo->args->forks[philo->first]);
 	pthread_mutex_unlock(&philo->args->forks[philo->second]);
 }
