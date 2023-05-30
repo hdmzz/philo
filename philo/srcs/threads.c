@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 18:33:18 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:21:37 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 12:00:32 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,9 @@ void	create_threads(t_args *args)//main thread
 	{
 		philo = &args->philos[i];
 		pthread_create(&philo->thrd, NULL, &routine, philo);
-		pthread_mutex_lock(&philo->check_meal_mutex);
-		philo->last_meal = philo->args->start_simulation;
-		pthread_mutex_unlock(&philo->check_meal_mutex);
 		i++;
 	}
-	pthread_create(&args->death_thread, NULL, &death, args);
+	death(args);
 	return ;
 }
 
@@ -39,10 +36,10 @@ void	wait_and_end(t_args *args)
 	i = 0;
 	while (i < args->nb_philo)
 	{
-		pthread_join(args->philos[i].thrd, NULL);
+		if (pthread_join(args->philos[i].thrd, NULL))
+			return ;
 		i++;
 	}
-	pthread_join(args->death_thread, NULL);
 }
 
 static void	*only_one_philo(t_philo *philo)
@@ -62,23 +59,17 @@ void	*routine(void *arg)
 	t_philo		*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->check_meal_mutex);
+	philo->last_meal = philo->args->start_simulation;
+	pthread_mutex_unlock(&philo->check_meal_mutex);
 	if (philo->args->nb_philo == 1)
 		return (only_one_philo(philo));
-	while (check_death(philo->args) == 0 )
+	
+	while (!check_death(philo->args))
 	{
 		take_fork(philo);
-		if (philo->first_taken && philo->second_taken)
-		{
-			print_state("is eating", philo);
-			pthread_mutex_lock(&philo->check_meal_mutex);
-			philo->last_meal = timestamp();
-			philo->count_meal += 1;
-			pthread_mutex_unlock(&philo->check_meal_mutex);
-			ft_sleep(philo->time_to_eat, philo->args);
-			release_fork(philo);
-			to_sleep(philo);
-			think(philo);
-		}
+		to_sleep(philo);
+		think(philo);
 	}
 	return (NULL);
 }

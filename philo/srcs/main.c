@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 16:55:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:25:53 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:36:00 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	main(int ac, char **av)
 
 	if (ac - 1 < 4 || ac - 1 > 5)
 		return (0);
-	parse_args(av, &args);
+	if (!parse_args(av, &args, ac))
+		return (0);
 	init_philo(&args);
 	create_threads(&args);
 	wait_and_end(&args);

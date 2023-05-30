@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:20 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/17 13:33:08 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:14:28 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@ void	take_fork(t_philo *philo)
 	forks = philo->args->forks;
 	pthread_mutex_lock(&forks[philo->first]);
 	print_state("has taken a fork", philo);
-	philo->first_taken = 1;
 	pthread_mutex_lock(&forks[philo->second]);
 	print_state("has taken a fork", philo);
-	philo->second_taken = 1;
-}
-
-void	release_fork(t_philo *philo)
-{
-	pthread_mutex_t	*forks;
-
-	forks = philo->args->forks;
-	pthread_mutex_unlock(&forks[philo->rfork]);
-	philo->first_taken = 0;
-	pthread_mutex_unlock(&forks[philo->lfork]);
-	philo->second_taken = 0;
+	pthread_mutex_lock(&philo->check_meal_mutex);
+	philo->last_meal = timestamp();
+	pthread_mutex_unlock(&philo->check_meal_mutex);
+	print_state("is eating", philo);
+	pthread_mutex_lock(&philo->check_meal_mutex);
+	philo->count_meal += 1;
+	pthread_mutex_unlock(&philo->check_meal_mutex);
+	ft_sleep(philo->time_to_eat, philo->args);
+	pthread_mutex_unlock(&philo->args->forks[philo->first]);
+	pthread_mutex_unlock(&philo->args->forks[philo->second]);
 }

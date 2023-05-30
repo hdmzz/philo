@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:16:10 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:37:20 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,33 @@ void	init_philo(t_args *args)
 	init_mutexes(args);
 }
 
-void	parse_args(char **av, t_args *args)
+static int	only_digits(char *str)
 {
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	parse_args(char **av, t_args *args, int ac)
+{
+	int	i;
+	
+	i = 0;
+	while (++i < ac)
+	{
+		if (!only_digits(av[i]))
+			return (0);
+	}
 	args->nb_philo = ft_atoi(av[1]);
 	if (args->nb_philo > 200 || args->nb_philo < 1)
-		return ;
+		return (0);
 	args->time_to_die = ft_atoi(av[2]);
 	args->time_to_eat = ft_atoi(av[3]);
 	args->time_to_sleep = ft_atoi(av[4]);
@@ -85,4 +107,5 @@ void	parse_args(char **av, t_args *args)
 		args->max_eat = ft_atoi(av[5]);
 	else
 		args->max_eat = -1;
+	return (1);
 }

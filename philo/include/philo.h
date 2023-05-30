@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 12:15:35 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/28 20:32:39 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		*death(void *a);
 int			check_death(t_args *args);
 
 //init.c
-void		parse_args(char **av, t_args *args);
+int			parse_args(char **av, t_args *args, int ac);
 void		init_philo(t_args *args);
 void		philo_attributes(t_philo *philo, int id, t_args *args);
 
