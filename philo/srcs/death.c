@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 13:00:09 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 12:47:45 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:21:00 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	all_full(t_args *args)
 	while (i < args->nb_philo)
 	{
 		pthread_mutex_lock(&philos[i].check_meal_mutex);
-		if (philos[i].count_meal < args->max_eat)
+		if (philos[i].ate_enough != 1)
 			all_full = 0;
 		pthread_mutex_unlock(&philos[i].check_meal_mutex);
 		i++;
