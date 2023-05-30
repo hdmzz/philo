@@ -6,7 +6,11 @@
 /*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/25 15:35:45 by hdamitzi         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/30 14:27:36 by hdamitzi         ###   ########.fr       */
+>>>>>>> version-6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +18,18 @@
 
 int	think(t_philo *philo)
 {
-	if (check_death(philo->args))
-		return (0);
-	return (print_state("is thinking", philo));
-	
+	time_t	time_to_think;
+
+	pthread_mutex_lock(&philo->check_meal_mutex);
+	time_to_think = (philo->args->time_to_die - \
+	(timestamp() - philo->last_meal) - philo->args->time_to_eat) / 2;
+	pthread_mutex_unlock(&philo->check_meal_mutex);
+	if (time_to_think < 0)
+		time_to_think = 0;
+	if (time_to_think == 0)
+		time_to_think = 1;
+	if (time_to_think > 600)
+		time_to_think = 200;
+	print_state("is thinking", philo);
+	ft_sleep(time_to_think);
 }

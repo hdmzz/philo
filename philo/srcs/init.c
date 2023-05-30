@@ -6,7 +6,11 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:01:53 by hdamitzi          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/26 09:44:32 by hdamitzi         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/30 14:27:06 by hdamitzi         ###   ########.fr       */
+>>>>>>> version-6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +18,7 @@
 
 void	philo_attributes(t_philo *philo, int id, t_args *args)
 {
-	philo->index = id;
+	philo->ate_enough = 0;
 	philo->rfork = id;
 	philo->lfork = (id + 1) % args->nb_philo;
 	philo->id = id + 1;
@@ -82,7 +86,7 @@ static int	only_digits(char *str)
 	return (1);
 }
 
-int	parse_args(int ac, char **av, t_args *args)
+int	parse_args(char **av, t_args *args, int ac)
 {
 	int	i;
 

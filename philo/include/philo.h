@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 16:14:12 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:10:50 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-struct s_args;
+struct	s_args;
 
 typedef struct s_philo
 {
 	pthread_t		thrd;
-	int				index;
+	int				ate_enough;
 	int				rfork;
 	int				lfork;
 	int				first;
@@ -69,14 +69,16 @@ long long	timestamp(void);
 void		create_threads(t_args *args);
 void		*routine(void *arg);
 void		wait_and_end(t_args *args);
+void	start_synchro(long long start_time);
 
 //eat.c
 int			take_fork(t_philo *philo);
 void		release_fork(t_philo *philo);
+int			all_full(t_args *args);
 
 //sleep.c
-int		to_sleep(t_philo *philo);
-void		ft_sleep(long long time_to, t_args *args);
+void		to_sleep(t_philo *philo);
+void		ft_sleep(long long time_to);
 
 //think.c
 int			think(t_philo *philo);
@@ -86,7 +88,7 @@ void		*death(void *a);
 int			check_death(t_args *args);
 
 //init.c
-int			parse_args(int ac, char **av, t_args *args);
+int			parse_args(char **av, t_args *args, int ac);
 void		init_philo(t_args *args);
 void		philo_attributes(t_philo *philo, int id, t_args *args);
 
