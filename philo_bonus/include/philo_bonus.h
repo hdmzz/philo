@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:27:14 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/01 01:16:05 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <signal.h>
 
+# define SEM_FULL	"/full_philo_sem"
+
 struct	s_args;
 
 typedef struct s_philo
@@ -32,6 +34,7 @@ typedef struct s_philo
 	pthread_t		one_death_thread;
 	char			*meal_sem_name;
 	int				ate_enough;
+	char			*id_in_str;
 	int				index;
 	int				rfork;
 	int				lfork;
@@ -53,17 +56,19 @@ typedef struct s_philo
 
 typedef struct s_args
 {
+	t_philo		*philos;
 	pthread_t	death_thread;
 	pthread_t	max_meal_thread;
-	sem_t		*stop_sem;
+	long long	start_simulation;
 	int			nb_philo;
 	int			time_to_die;
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			one_dead;
-	long long	start_simulation;
 	int			max_eat;
-	t_philo		*philos;
+	int			full_count;
+	sem_t		*full_philo_sem;
+	sem_t		*stop_sem;
 	sem_t		*forks_sem;
 	sem_t		*print_sem;
 	sem_t		*check_death_sem;
@@ -87,7 +92,7 @@ char		*ft_strjoin(char const *s1, char const *s2);
 //death_bonus.c
 void		*death(void *a);
 int			check_death(t_args *args);
-void		stop_simulation(t_args *args);
+int			stop_simulation(t_args *args);
 void		*global_death(void *a);
 
 //fork_bonus.c
@@ -101,5 +106,12 @@ void		ft_sleep(long long time_to);
 
 //max_meal_bonus.h
 void	*are_philo_full(void *a);
+
+//process_bonus.c
+int	create_process(t_args *args);
+int	wait_and_end(t_args *args);
+
+//philosophers_bonus.c
+int	routine(t_philo *philo);
 
 #endif

@@ -6,40 +6,33 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:18:05 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:39:29 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/01 00:53:18 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-int	all_full(t_args *args)
-{
-	int	i;
-	int	full;
-
-	i = 0;
-	full = 1;
-	while (i < args->nb_philo)
-	{
-		sem_wait(args->philos[i].check_meal_sem);
-		if (args->philos[i].ate_enough != 1)
-			full = 0;
-		sem_post(args->philos[i].check_meal_sem);
-		i++;
-	}
-	return (full);
-}
-
+/*
+*	this thread recover the semaphore ceded by the processes
+*	when they reach the meal limit
+*/
 void	*are_philo_full(void *a)
 {
 	t_args	*args;
 	int		i;
 
-	printf("here");
 	args = (t_args *)a;
-	while (1)
+	if (args->max_eat <= 0 || args->nb_philo == 1)
+		return (NULL);
+	while (args->full_count < args->nb_philo)
 	{
-		if (all_full(args))
-			sem_post(args->stop_sem);
+		if (check_death(args))
+			return (NULL);
+		sem_wait(args->full_philo_sem);
+		if (!check_death(args))
+			args->full_count += 1;
+		else
+			return (NULL);
 	}
+	sem_post(args->stop_sem);
 }
