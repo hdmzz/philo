@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 14:27:36 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 22:47:40 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	think(t_philo *philo)
 {
-	time_t	time_to_think;
+	int	time_to_think;
 
 	pthread_mutex_lock(&philo->check_meal_mutex);
 	time_to_think = (philo->args->time_to_die - \
