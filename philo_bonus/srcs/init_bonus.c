@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:38:40 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:33:26 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,11 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 	philo->last_meal = 0;
 	philo->eat_count = 0;
 	philo->meal_sem_name = ft_strjoin("/check_meal_sem", ft_itoa(philo->id));
+	philo->full_sem_name = ft_strjoin("/full_sem", ft_itoa(philo->id));
 	sem_unlink(philo->meal_sem_name);
+	sem_unlink(philo->full_sem_name);
 	philo->check_meal_sem = sem_open(philo->meal_sem_name, O_CREAT, 0644, 1);
+	philo->full_sem = sem_open(philo->full_sem_name, O_CREAT, 0644, 1);
 }
 
 void	init_philo(t_args *args)
@@ -95,5 +98,9 @@ int	parse_args(int ac, char **av, t_args *args)
 	args->one_dead = 0;
 	if (av[5])
 		args->max_eat = ft_atoi(av[5]);
+	args->all_philos_full = malloc (sizeof(int) * args->nb_philo);
+	if (!args->all_philos_full)
+		return (0);
+	memset(args->all_philos_full, 0, sizeof(int) * args->nb_philo);
 	return (1);
 }

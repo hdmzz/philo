@@ -6,25 +6,28 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/31 12:48:35 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:46:54 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-// static int	only_one_philo(t_philo *philo)
-// {
-// 	pthread_create(&philo->one_death_thread, NULL, death, philo);
-// 	pthread_detach(philo->one_death_thread);
-// 	sem_wait(philo->args->forks_sem);
-// 	print_state("has taken a fork", philo);
-// 	ft_sleep(philo->time_to_die, philo->args);
-// 	return (1);
-// }
-
 void	think(t_philo *philo)
 {
+	int	time_to_think;
+
+	sem_wait(philo->check_meal_sem);
+	time_to_think = (philo->args->time_to_die - \
+	(timestamp() - philo->last_meal) - philo->args->time_to_eat) / 2;
+	sem_post(philo->check_meal_sem);
+	if (time_to_think >= 600)
+		time_to_think = 200;
+	if (time_to_think < 0)
+		time_to_think = 0;
+	if (time_to_think == 0)
+		time_to_think = 1;
 	print_state("is thinking", philo);
+	ft_sleep(time_to_think);
 }
 
 int	routine(t_philo *philo)
@@ -33,13 +36,17 @@ int	routine(t_philo *philo)
 	philo->last_meal = timestamp();
 	sem_post(philo->check_meal_sem);
 	pthread_create(&philo->one_death_thread, NULL, death, philo);
-	pthread_detach(philo->one_death_thread);
+	if (philo->index % 2)
+		think(philo);
 	while (1)
 	{
+		if ( philo->args->max_eat > 0 && philo->eat_count >= philo->args->max_eat)
+			break ;
 		take_fork(philo);
 		to_sleep(philo);
 		think(philo);
 	}
+	sem_post(philo->args->stop_sem);
 	return (1);
 }
 
@@ -58,7 +65,6 @@ int	create_process(t_args *args)
 		i++;
 	}
 	pthread_create(&args->death_thread, NULL, &global_death, args);
-	pthread_join(args->death_thread, NULL);
 	return (0);
 }
 
@@ -72,6 +78,7 @@ int	wait_and_end(t_args *args)
 		waitpid(args->philos[i].pid, NULL, 0);
 		i++;
 	}
+	pthread_detach(args->death_thread);
 	return (1);
 }
 
