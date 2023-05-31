@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 16:19:49 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:48:35 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	routine(t_philo *philo)
 	while (1)
 	{
 		take_fork(philo);
-		release_fork(philo);
 		to_sleep(philo);
 		think(philo);
 	}

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/31 09:47:51 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:50:13 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ static int	is_dead(t_philo *philo)
 	is_full = 1;
 	if (starving_death(philo))
 		return (1);
-	if (philo->args->max_eat != -1 && all_full(philo->args))
-		return (1);
 	return (0);
 }
 
@@ -90,6 +88,11 @@ void	*global_death(void *a)
 	t_args	*args;
 
 	args = (t_args *)a;
+	if (args->max_eat != -1 || args->max_eat != 0)
+	{
+		pthread_create(&args->max_meal_thread, NULL, are_philo_full, args);
+		pthread_detach(args->max_meal_thread);
+	}
 	sem_wait(args->stop_sem);
 	stop_simulation(args);
 	sem_post(args->stop_sem);

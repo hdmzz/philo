@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/31 09:46:19 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 12:27:14 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_philo
 typedef struct s_args
 {
 	pthread_t	death_thread;
+	pthread_t	max_meal_thread;
 	sem_t		*stop_sem;
 	int			nb_philo;
 	int			time_to_die;
@@ -97,5 +98,8 @@ int			all_full(t_args *args);
 //sleep_bonus.c
 void		to_sleep(t_philo *philo);
 void		ft_sleep(long long time_to);
+
+//max_meal_bonus.h
+void	*are_philo_full(void *a);
 
 #endif
