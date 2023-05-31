@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:12:28 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/23 09:30:50 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:16:54 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		new[j++] = *s2++;
 	new[j] = '\0';
 	return (new);
-}
-
-void	ft_sleep(long long time_to, t_args*args)
-{
-	long long	start_time;
-
-	start_time = timestamp();
-	while ((timestamp() - start_time) < time_to)
-	{
-		usleep(100);
-	}
 }

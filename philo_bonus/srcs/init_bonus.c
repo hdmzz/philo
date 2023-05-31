@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/25 11:50:00 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:34:47 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	philo_attributes(t_philo *philo, int id, t_args *args)
 {
 	philo->index = id;
 	philo->id = id + 1;
+	philo->ate_enough = 0;
 	philo->is_dead = 0;
 	philo->time_to_die = args->time_to_die;
 	philo->time_to_eat = args->time_to_eat;

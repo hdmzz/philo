@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:07:34 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:47:51 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,14 @@ static int	is_dead(t_philo *philo)
 	is_full = 1;
 	if (starving_death(philo))
 		return (1);
-	sem_wait(philo->check_meal_sem);
-	if (philo->args->max_eat != -1 && \
-		philo->eat_count < philo->args->max_eat)
-		is_full = 0;
-	sem_post(philo->check_meal_sem);
+	if (philo->args->max_eat != -1 && all_full(philo->args))
+		return (1);
 	return (0);
 }
 
 //death sera lance par chaque process autrement dit chaque philo verifi sa propre mort
 //il faudrat aussi faireen sorte quen cas de mort chaque philo puisse faire en sorte darreter tout les autres
-//peut etre utiliser un semaphore que lon wait et que lon post lors de la mort de lun ce aui entraine 
+//peut etre utiliser un semaphore que lon wait et que lon post lors de la mort de lun ce aui entraine
 void	*death(void *a)
 {
 	t_philo	*philo;

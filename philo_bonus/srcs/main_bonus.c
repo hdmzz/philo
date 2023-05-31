@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 21:46:58 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:19:06 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:19:49 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ int	routine(t_philo *philo)
 	while (1)
 	{
 		take_fork(philo);
-		take_fork(philo);
-		print_state("is eating", philo);
-		sem_wait(philo->check_meal_sem);
-		philo->last_meal = timestamp();
-		philo->eat_count += 1;
-		sem_post(philo->check_meal_sem);
-		ft_sleep(philo->time_to_eat, philo->args);
 		release_fork(philo);
 		to_sleep(philo);
 		think(philo);

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:05:05 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/05/31 09:46:19 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 	pid_t			pid;
 	pthread_t		one_death_thread;
 	char			*meal_sem_name;
+	int				ate_enough;
 	int				index;
 	int				rfork;
 	int				lfork;
@@ -81,7 +82,6 @@ char		*ft_itoa(int n);
 
 //utils2_bonus.c
 char		*ft_strjoin(char const *s1, char const *s2);
-void		ft_sleep(long long time_to, t_args*args);
 
 //death_bonus.c
 void		*death(void *a);
@@ -92,8 +92,10 @@ void		*global_death(void *a);
 //fork_bonus.c
 void		take_fork(t_philo *philo);
 void		release_fork(t_philo *philo);
+int			all_full(t_args *args);
 
 //sleep_bonus.c
 void		to_sleep(t_philo *philo);
+void		ft_sleep(long long time_to);
 
 #endif
