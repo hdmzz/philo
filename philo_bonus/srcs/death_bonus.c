@@ -6,13 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/24 15:07:34 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/01 03:03:11 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
 
-void	stop_simulation(t_args *args)
+int	stop_simulation(t_args *args)
 {
 	int	i;
 
@@ -22,6 +22,7 @@ void	stop_simulation(t_args *args)
 		kill(args->philos[i].pid, SIGTERM);
 		i++;
 	}
+	return (1);
 }
 
 static int	starving_death(t_philo *philo)
@@ -43,36 +44,37 @@ static int	starving_death(t_philo *philo)
 	return (0);
 }
 
-static int	is_dead(t_philo *philo)
+int	philo_is_full(t_philo *philo)
 {
-	int	i;
-	int	is_full;
+	int	eat_count;
 
-	i = -1;
-	is_full = 1;
-	if (starving_death(philo))
-		return (1);
 	sem_wait(philo->check_meal_sem);
-	if (philo->args->max_eat != -1 && \
-		philo->eat_count < philo->args->max_eat)
-		is_full = 0;
+	eat_count = philo->eat_count;
 	sem_post(philo->check_meal_sem);
+	if (eat_count < philo->args->max_eat)
+		return (0);
+	sem_post(philo->args->full_philo_sem);
+	philo->ate_enough = 1;
+	return (1);
+}
+
+static int	end_reached(t_philo *philo)
+{
+	if (starving_death(philo) || philo_is_full(philo))
+		return (1);
 	return (0);
 }
 
-//death sera lance par chaque process autrement dit chaque philo verifi sa propre mort
-//il faudrat aussi faireen sorte quen cas de mort chaque philo puisse faire en sorte darreter tout les autres
-//peut etre utiliser un semaphore que lon wait et que lon post lors de la mort de lun ce aui entraine 
 void	*death(void *a)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)a;
-	while (1)
+	start_synchro(philo->args->start_simulation);
+	sem_wait(philo->args->full_philo_sem);
+	while (!end_reached(philo))
 	{
-		if (is_dead(philo))
-			return (NULL);
-		usleep(50);
+		usleep(1000);
 	}
 	return (NULL);
 }
@@ -93,7 +95,8 @@ void	*global_death(void *a)
 	t_args	*args;
 
 	args = (t_args *)a;
+	start_synchro(args->start_simulation);
 	sem_wait(args->stop_sem);
 	stop_simulation(args);
-	sem_post(args->stop_sem);
+	return (0);
 }
