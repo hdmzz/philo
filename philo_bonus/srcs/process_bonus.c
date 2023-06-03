@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:05:17 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/02 21:54:43 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/03 15:35:58 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	create_process(t_args *args)
 		i++;
 	}
 	pthread_create(&args->death_thread, NULL, &global_death, (void *)args);
-	pthread_create(&args->max_meal_thread, NULL, &are_philo_full, args);
+	pthread_create(&args->max_meal_thread, NULL, &are_philo_full, (void *)args);
 	return (0);
 }
 
@@ -44,12 +44,20 @@ int	wait_and_end(t_args *args)
 {
 	int	i;
 	int	ret;
+	int	exit_status;
 
 	ret = 1;
 	i = 0;
 	while (i < args->nb_philo)
 	{
-		if (waitpid(args->philos[i]->pid, NULL, 0) == -1)
+		if (waitpid(args->philos[i]->pid, &exit_status, 0) != 0)
+		{
+			if (WIFEXITED(exit_status))
+			{
+				if (WEXITSTATUS(exit_status) == EXIT_PHILO_DEAD)
+					stop_simulation(args);
+			}
+		}
 			ret = 0;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:18:05 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/01 02:57:05 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/03 16:12:03 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ void	*are_philo_full(void *a)
 		else
 			return (NULL);
 	}
+	sem_wait(args->stop_sem);
+	stop_simulation(args);
 	sem_post(args->stop_sem);
 }

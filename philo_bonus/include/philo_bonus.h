@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/02 21:17:38 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:36:27 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <signal.h>
 
 # define SEM_FULL	"/full_philo_sem"
+# define EXIT_PHILO_DEAD	10
+# define EXIT_PHILO_FULL	11
 
 struct	s_args;
 
@@ -52,6 +54,7 @@ typedef struct s_philo
 	long long		last_meal;
 	struct s_args	*args;
 	sem_t			*check_meal_sem;
+	sem_t			*full_philo_sem;
 }	t_philo;
 
 typedef struct s_args
