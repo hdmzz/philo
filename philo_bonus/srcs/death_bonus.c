@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/01 03:03:11 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:59:30 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	stop_simulation(t_args *args)
 	i = 0;
 	while (i < args->nb_philo)
 	{
-		kill(args->philos[i].pid, SIGTERM);
+		kill(args->philos[i]->pid, SIGTERM);
 		i++;
 	}
 	return (1);
@@ -33,14 +33,13 @@ static int	starving_death(t_philo *philo)
 	cur_time = timestamp();
 	sem_wait(philo->check_meal_sem);
 	lst_meal = philo->last_meal;
-	if ((cur_time - philo->last_meal) > philo->args->time_to_die)
+	sem_post(philo->check_meal_sem);
+	if ((cur_time - lst_meal) > philo->args->time_to_die)
 	{
 		print_state("died", philo);
-		sem_post(philo->check_meal_sem);
 		sem_post(philo->args->stop_sem);
 		return (1);
 	}
-	sem_post(philo->check_meal_sem);
 	return (0);
 }
 
@@ -74,7 +73,7 @@ void	*death(void *a)
 	sem_wait(philo->args->full_philo_sem);
 	while (!end_reached(philo))
 	{
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }

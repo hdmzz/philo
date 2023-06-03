@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:03:31 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/01 04:11:34 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:18:40 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	think(t_philo *philo)
 int	routine(t_philo *philo)
 {
 	pthread_create(&philo->one_death_thread, NULL, death, philo);
-	pthread_detach(philo->one_death_thread);
 	sem_wait(philo->check_meal_sem);
 	philo->last_meal = philo->args->start_simulation;
 	sem_post(philo->check_meal_sem);

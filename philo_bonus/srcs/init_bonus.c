@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:08:29 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/02 20:38:40 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/02 21:10:53 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_philo	**init_philo(t_args *args)
 	philos = malloc(sizeof(t_philo *) * args->nb_philo);
 	if (!philos)
 		return (NULL);
-	while (i < args->nb_philo)
+	while (++i < args->nb_philo)
 	{
 		philos[i] = malloc(sizeof(t_philo) * 1);
 		if (!philos[i])
