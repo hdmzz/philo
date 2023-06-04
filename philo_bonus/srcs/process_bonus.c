@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:05:17 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 13:49:13 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:04:02 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	wait_and_end(t_args *args)
 	int	ret;
 	int	exit_status;
 
-	ret = 1;
 	i = 0;
 	while (i < args->nb_philo)
 	{
@@ -55,11 +54,12 @@ int	wait_and_end(t_args *args)
 			if (WIFEXITED(exit_status))
 			{
 				if (WEXITSTATUS(exit_status) == EXIT_PHILO_DEAD)
-					stop_simulation(args);
+					return (1);
+				if (WEXITSTATUS(exit_status) == EXIT_PHILO_FULL)
+					return (1);
 			}
 		}
-			ret = 0;
 		i++;
 	}
-	return (ret);
+	return (0);
 }

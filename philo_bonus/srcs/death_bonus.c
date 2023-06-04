@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 15:03:18 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:19:18 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	starving_death(t_philo *philo)
 int	philo_is_full(t_philo *philo)
 {
 	sem_wait(philo->check_meal_sem);
-	if (philo->args->max_eat > 0 && philo->eat_count > philo->args->max_eat)
+	if (philo->args->max_eat >= 0 && philo->eat_count >= philo->args->max_eat)
 	{
 		philo->ate_enough = 1;
 		sem_post(philo->check_meal_sem);
@@ -54,30 +54,6 @@ int	philo_is_full(t_philo *philo)
 		sem_post(philo->args->stop_sem);
 		return (1);
 	}
-	sem_post(philo->check_meal_sem);
-	return (0);
-}
-
-static int	end_reached(t_philo *philo)
-{
-	long long	cur_time;
-	long long	lst_meal;
-
-	sem_wait(philo->check_meal_sem);
-	if ((timestamp() - philo->last_meal) > philo->args->time_to_die)
-	{
-		sem_post(philo->check_meal_sem);
-		sem_post(philo->args->stop_sem);
-		print_state("died", philo);
-		return (1);
-	}
-	// if (philo->eat_count >= philo->args->max_eat)
-	// {
-	// 	sem_post(philo->args->full_philo_sem);
-	// 	sem_post(philo->check_meal_sem);
-	// 	philo->ate_enough = 1;
-	// 	return (1);
-	// }
 	sem_post(philo->check_meal_sem);
 	return (0);
 }

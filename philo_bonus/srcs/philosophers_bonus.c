@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:03:31 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 14:36:14 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:17:39 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ int	routine(t_philo *philo)
 		to_sleep(philo);
 		think(philo);
 	}
+	return (EXIT_PHILO_DEAD);
 }
