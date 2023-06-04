@@ -6,13 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:16 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:29 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:52:50 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	to_sleep(t_philo *philo)
+void	to_sleep(t_philo *philo)
 {
 	print_state("is sleeping", philo);
 	ft_sleep(philo->time_to_sleep);

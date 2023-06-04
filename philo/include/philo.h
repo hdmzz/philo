@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:37:04 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:53:27 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void		wait_and_end(t_args *args);
 void		start_synchro(long long start_time);
 
 //eat.c
-int			take_fork(t_philo *philo);
-void		release_fork(t_philo *philo);
+void		take_fork(t_philo *philo);
 int			all_full(t_args *args);
 
 //sleep.c
@@ -81,7 +80,7 @@ void		to_sleep(t_philo *philo);
 void		ft_sleep(long long time_to);
 
 //think.c
-int			think(t_philo *philo);
+void			think(t_philo *philo);
 
 //death.c
 void		*death(void *a);

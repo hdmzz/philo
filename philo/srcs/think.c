@@ -6,13 +6,13 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:46:24 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/01 01:25:15 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:53:13 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	think(t_philo *philo)
+void	think(t_philo *philo)
 {
 	int	time_to_think;
 
