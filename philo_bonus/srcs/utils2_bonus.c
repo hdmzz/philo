@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:12:28 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 16:16:54 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:30:41 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		new[j++] = *s2++;
 	new[j] = '\0';
 	return (new);
+}
+
+int	stop_simulation(t_args *args)
+{
+	int	i;
+
+	i = 0;
+	while (i < args->nb_philo)
+	{
+		kill(args->philos[i]->pid, SIGTERM);
+		i++;
+	}
+	return (1);
 }

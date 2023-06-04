@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:35 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/03 14:36:27 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:30:56 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,16 @@ char		*ft_itoa(int n);
 
 //utils2_bonus.c
 char		*ft_strjoin(char const *s1, char const *s2);
+int			stop_simulation(t_args *args);
 
 //death_bonus.c
 void		*death(void *a);
 int			check_death(t_args *args);
-int			stop_simulation(t_args *args);
 void		*global_death(void *a);
 int			philo_is_full(t_philo *philo);
 
 //fork_bonus.c
 void		take_fork(t_philo *philo);
-void		release_fork(t_philo *philo);
 int			all_full(t_args *args);
 
 //sleep_bonus.c
@@ -109,14 +108,14 @@ void		to_sleep(t_philo *philo);
 void		ft_sleep(long long time_to);
 
 //max_meal_bonus.h
-void	*are_philo_full(void *a);
+void		*are_philo_full(void *a);
 
 //process_bonus.c
-int		create_process(t_args *args);
-void	start_synchro(long long start_time);
-int		wait_and_end(t_args *args);
+int			create_process(t_args *args);
+void		start_synchro(long long start_time);
+int			wait_and_end(t_args *args);
 
 //philosophers_bonus.c
-int	routine(t_philo *philo);
+int			routine(t_philo *philo);
 
 #endif

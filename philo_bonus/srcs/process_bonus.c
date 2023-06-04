@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:05:17 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:04:02 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:31:36 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	create_process(t_args *args)
 {
-	int	i;
+	int		i;
 	pid_t	pid;
 
 	i = 0;

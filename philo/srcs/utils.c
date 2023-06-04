@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:53:10 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/30 15:11:55 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:37:27 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ long long	timestamp(void)
 	return (t.tv_sec * 1000LL + t.tv_usec / 1000);
 }
 
-int		print_state(char *state, t_philo *philo)
+int	print_state(char *state, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->args->print_mutex);
 	if (check_death(philo->args))

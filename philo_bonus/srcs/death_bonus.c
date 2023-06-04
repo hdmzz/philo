@@ -6,24 +6,11 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:19:18 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:30:32 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo_bonus.h"
-
-int	stop_simulation(t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (i < args->nb_philo)
-	{
-		kill(args->philos[i]->pid, SIGTERM);
-		i++;
-	}
-	return (1);
-}
 
 static int	starving_death(t_philo *philo)
 {
