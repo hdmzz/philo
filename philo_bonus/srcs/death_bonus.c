@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/03 16:18:21 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 15:03:18 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,5 @@ void	*global_death(void *a)
 	sem_wait(args->stop_sem);
 	stop_simulation(args);
 	sem_post(args->stop_sem);
-	return (0);
+	return (NULL);
 }

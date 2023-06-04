@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:05:17 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/03 15:35:58 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 13:49:13 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	create_process(t_args *args)
 		pid = fork();
 		if (pid > 0)
 			args->philos[i]->pid = pid;
-		if (args->philos[i]->pid == 0)
+		if (pid == 0)
 			routine(args->philos[i]);
 		i++;
 	}
