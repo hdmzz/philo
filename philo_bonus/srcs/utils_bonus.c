@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:06:44 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:32:52 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:56:48 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,6 @@ long long	timestamp(void)
 void	print_state(char *state, t_philo *philo)
 {
 	sem_wait(philo->args->print_sem);
-	if (check_death(philo->args))
-	{
-		sem_post(philo->args->print_sem);
-		return ;
-	}
 	printf("%lld %d %s\n", \
 	(timestamp() - philo->args->start_simulation), \
 	philo->id, state);

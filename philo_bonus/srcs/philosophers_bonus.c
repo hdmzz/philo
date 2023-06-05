@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: hdamitzi <hdamitzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:03:31 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:17:39 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:59:38 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	routine(t_philo *philo)
 	start_synchro(philo->args->start_simulation);
 	if (philo->index % 2)
 		think(philo);
-	while (!check_death(philo->args))
+	while (1)
 	{
 		take_fork(philo);
 		to_sleep(philo);
