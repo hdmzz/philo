@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 11:06:44 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/05/22 20:55:50 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:32:52 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	print_state(char *state, t_philo *philo)
 		sem_post(philo->args->print_sem);
 		return ;
 	}
-	printf("%lld ", (timestamp() - philo->args->start_simulation));
-	printf("%d ", philo->id);
-	printf("%s\n", state);
+	printf("%lld %d %s\n", \
+	(timestamp() - philo->args->start_simulation), \
+	philo->id, state);
 	sem_post(philo->args->print_sem);
 }
 
