@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 20:56:15 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:30:32 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:21:41 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	starving_death(t_philo *philo)
 {
 	long long	cur_time;
-	long long	lst_meal;
 
 	cur_time = timestamp();
 	sem_wait(philo->check_meal_sem);
@@ -62,6 +61,7 @@ void	*death(void *a)
 			break ;
 		usleep(1000);
 	}
+	return (NULL);
 }
 
 int	check_death(t_args *args)

@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 00:05:17 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 22:31:36 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:22:05 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	start_synchro(long long start_time)
 int	wait_and_end(t_args *args)
 {
 	int	i;
-	int	ret;
 	int	exit_status;
 
 	i = 0;

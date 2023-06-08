@@ -6,7 +6,7 @@
 /*   By: hdamitzi <hdamitzi@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 12:18:05 by hdamitzi          #+#    #+#             */
-/*   Updated: 2023/06/04 15:05:26 by hdamitzi         ###   ########.fr       */
+/*   Updated: 2023/06/09 00:21:58 by hdamitzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@
 void	*are_philo_full(void *a)
 {
 	t_args	*args;
-	int		i;
 
 	args = (t_args *)a;
 	if (args->max_eat <= 0 || args->nb_philo == 1)
 		return (NULL);
-	i = 0;
 	start_synchro(args->start_simulation);
 	while (args->full_count < args->nb_philo)
 	{
